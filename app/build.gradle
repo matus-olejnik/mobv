@@ -1,0 +1,46 @@
+//according to https://teams.microsoft.com/_#/mp4/viewer/teams/https:~2F~2Fstubask.sharepoint.com~2Fsites~2FMobilnvpoty2122~2FShared%20Documents~2FCvi%C4%8Denie%20%C5%A0tv%20o%2013h~2FRecordings~2FCvi%C4%8Denie%20%C5%A0tv%20-%2013h-20210923_130931-Meeting%20Recording.mp4?threadId=19:75da8d913f594f02a859e29f865f3e21@thread.tacv2&baseUrl=https:~2F~2Fstubask.sharepoint.com~2Fsites~2FMobilnvpoty2122&fileId=d6cf7428-bfc5-492a-9acd-ebbe4a296283&ctx=files&rootContext=items_view&viewerAction=view
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        applicationId "com.emmm.mobv"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
