@@ -25,11 +25,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             balanceButton.setOnClickListener {
-                viewModel.checkBalance("GDXDVP3JB67JKXVTHKONSELWF5WRSZK2QSXQYNBSLYCJCCDK37I2WLWK")
+                viewModel.checkBalance("GD3PFUAY2SOPJUFR6UGR6PB3UJYRVMWWMEVN46KOX7GDLLBZJLLDYCQM")
             }
 
             sendMoneyButton.setOnClickListener {
-                viewModel.sendMoney()
+                viewModel.sendMoney(
+                    "SCCJH5NTT7XX7E6Q4DB2VRPZI7JRNEJMSWAC2VMFHD436NZLDJF2OKDR",
+                    "GA2HZILTHPO334QK4GIN66TRXM4TACVPWSLFOEQVYP4CGW2URKDSRKWZ",
+                    "1000"
+                )
+            }
+
+            showTransactionsButton.setOnClickListener {
+                viewModel.showTransactions("GD3PFUAY2SOPJUFR6UGR6PB3UJYRVMWWMEVN46KOX7GDLLBZJLLDYCQM")
             }
         }
     }

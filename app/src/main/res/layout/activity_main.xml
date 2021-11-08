@@ -34,7 +34,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/balanceButton"
                 app:layout_constraintBottom_toTopOf="@+id/textView" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="40dp"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintTop_toBottomOf="@+id/showTransactionsButton"/>
+        <Button
+                android:text="Transakcie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/showTransactionsButton"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="76dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

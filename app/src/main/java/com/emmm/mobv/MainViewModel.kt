@@ -4,8 +4,12 @@ import android.os.AsyncTask
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import org.stellar.sdk.*
+import org.stellar.sdk.requests.PaymentsRequestBuilder
 import org.stellar.sdk.responses.AccountResponse
 import org.stellar.sdk.responses.SubmitTransactionResponse
+import org.stellar.sdk.responses.operations.CreateAccountOperationResponse
+import org.stellar.sdk.responses.operations.OperationResponse
+import org.stellar.sdk.responses.operations.PaymentOperationResponse
 import java.io.InputStream
 import java.net.URL
 import java.util.*
@@ -56,13 +60,13 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun sendMoney() {
+    fun sendMoney(fromAccountSecret: String, toAccountId: String, amount: String) {
 
         AsyncTask.execute {
             val server = Server("https://horizon-testnet.stellar.org")
 
-            val source = KeyPair.fromSecretSeed("SBBNTQCXA3YADJ24HNUN3UW4X7FBO4UXMUH2XQ2UCZJOK6EKBC4M2KWA")
-            val destination = KeyPair.fromAccountId("GB6QKHM7V55TZWC5GXDPVTMSTECAC26KEBWSMM4DC6GUBAV43VPD5MKZ")
+            val source = KeyPair.fromSecretSeed(fromAccountSecret)
+            val destination = KeyPair.fromAccountId(toAccountId)
 
             server.accounts().account(source.accountId)
             server.accounts().account(destination.accountId)
@@ -71,7 +75,7 @@ class MainViewModel : ViewModel() {
 
             val transaction: Transaction = Transaction.Builder(sourceAccount, Network.TESTNET)
                 .addOperation(
-                    PaymentOperation.Builder(destination.accountId, AssetTypeNative(), "5000").build()
+                    PaymentOperation.Builder(destination.accountId, AssetTypeNative(), amount).build()
                 )
                 .addMemo(Memo.text("Test Transaction"))
                 .setTimeout(180)
@@ -87,6 +91,51 @@ class MainViewModel : ViewModel() {
                 println("Something went wrong!")
                 println(e.message)
 
+            }
+        }
+    }
+
+    fun showTransactions(accountId: String) {
+        AsyncTask.execute {
+            val output: StringBuilder = StringBuilder()
+
+            val server = Server("https://horizon-testnet.stellar.org")
+
+            val account = KeyPair.fromAccountId(accountId)
+
+            val paymentRequestBuilder: PaymentsRequestBuilder = server.payments().forAccount(account.accountId)
+            val operations: ArrayList<OperationResponse> = paymentRequestBuilder.execute().records
+
+            for (payment in operations) {
+                if (payment is PaymentOperationResponse) {
+                    val amount: String = payment.amount
+                    val asset: Asset = payment.asset
+                    val assetName: String = if (asset == AssetTypeNative()) {
+                        "lumens"
+                    } else {
+                        val assetNameBuilder: StringBuilder = StringBuilder()
+                        assetNameBuilder.append(((asset as AssetTypeCreditAlphaNum).code))
+                        assetNameBuilder.append(":")
+                        assetNameBuilder.append(asset.issuer)
+                        assetNameBuilder.toString()
+                    }
+                    output.append(amount)
+                    output.append(" ")
+                    output.append(assetName)
+                    output.append("\n from ")
+                    output.append(payment.from)
+                    output.append("\n to ")
+                    output.append(payment.to)
+                    output.append("\n\n   ")
+
+                    Log.i("TEEEEEEEEEEEEEEEEST", "transakcie\n\n$output")
+                } else if (payment is CreateAccountOperationResponse) {
+                    output.append("Funder ")
+                    output.append(payment.funder)
+                    output.append("\nStarting balance ")
+                    output.append(payment.startingBalance)
+                    Log.i("TEEEEEEEEEEEEEEEEST", "else vetva")
+                }
             }
         }
     }
