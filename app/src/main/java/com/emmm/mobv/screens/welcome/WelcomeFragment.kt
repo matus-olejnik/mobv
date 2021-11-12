@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.R
+import com.emmm.mobv.data.util.Injection
 import com.emmm.mobv.databinding.WelcomeFragmentBinding
 
 class WelcomeFragment : Fragment() {
+
+    private lateinit var welcomeViewModel: WelcomeViewModel
+    private lateinit var binding: WelcomeFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,13 +25,22 @@ class WelcomeFragment : Fragment() {
             inflater, R.layout.welcome_fragment, container, false
         )
 
-        binding.registrationButton.setOnClickListener {
-            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
-        }
+        binding.lifecycleOwner = this
+        welcomeViewModel =
+            ViewModelProvider(
+                this,
+                Injection.provideViewModelFactory(requireContext())
+            ).get(WelcomeViewModel::class.java)
 
-        binding.loginButton.setOnClickListener {
-            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
-        }
+        binding.model = welcomeViewModel
+
+//        binding.registrationButton.setOnClickListener {
+//            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
+//        }
+//
+//        binding.loginButton.setOnClickListener {
+//            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
+//        }
 
         return binding.root
     }
