@@ -1,4 +1,4 @@
-package com.emmm.mobv.data.util
+package com.emmm.mobv.util
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider

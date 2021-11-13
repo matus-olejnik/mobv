@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emmm.mobv.R
-import com.emmm.mobv.data.util.Injection
 import com.emmm.mobv.databinding.ContactsFragmentBinding
+import com.emmm.mobv.util.Injection
 
 class ContactsFragment : Fragment() {
 

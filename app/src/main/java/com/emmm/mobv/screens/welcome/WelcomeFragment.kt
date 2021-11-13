@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.R
-import com.emmm.mobv.data.util.Injection
 import com.emmm.mobv.databinding.WelcomeFragmentBinding
+import com.emmm.mobv.util.Injection
 
 class WelcomeFragment : Fragment() {
 
