@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.R
 import com.emmm.mobv.data.util.Injection
 import com.emmm.mobv.databinding.WelcomeFragmentBinding
@@ -34,13 +35,13 @@ class WelcomeFragment : Fragment() {
 
         binding.model = welcomeViewModel
 
-//        binding.registrationButton.setOnClickListener {
-//            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
-//        }
-//
-//        binding.loginButton.setOnClickListener {
-//            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
-//        }
+        binding.loginButton.setOnClickListener {
+            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
+        }
+
+        binding.registrationButton.setOnClickListener {
+            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
+        }
 
         return binding.root
     }
