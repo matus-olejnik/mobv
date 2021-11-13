@@ -15,18 +15,23 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="model"
+                  type="com.emmm.mobv.screens.main.MainViewModel"/>
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/title_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screens.main.MainFragment">
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".screens.main.MainFragment">
 
         <TextView
-            android:id="@+id/welcomeText"
-            android:layout_width="wrap_content"
+                android:id="@+id/welcomeText"
+                android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome Back,"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,16 +42,24 @@
             app:layout_constraintVertical_bias="0.051" />
 
         <TextView
-            android:id="@+id/nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tester Account"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.132"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.094" />
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tester Account"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.132"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.094"/>
+
+        <Button
+                android:text="Kontakty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/contactsButton"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="12dp" app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
