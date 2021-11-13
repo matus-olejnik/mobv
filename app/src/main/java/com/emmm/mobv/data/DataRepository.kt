@@ -1,5 +1,6 @@
 package com.emmm.mobv.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.db.LocalCache
 import com.emmm.mobv.data.db.model.ContactItem
@@ -21,23 +22,24 @@ class DataRepository private constructor(
             }
     }
 
-    fun insertContacts(contactItems: List<ContactItem>) {
+    suspend fun insertContacts(contactItems: List<ContactItem>) {
         cache.insertContacts(contactItems)
     }
 
-    fun insertContact(contactItem: ContactItem) {
+    suspend fun insertContact(contactItem: ContactItem) {
         cache.insertContact(contactItem)
     }
 
-    fun updateContact(contactItem: ContactItem) {
+    suspend fun updateContact(contactItem: ContactItem) {
         cache.updateContact(contactItem)
     }
 
-    fun deleteContact(contactItem: ContactItem) {
+    suspend fun deleteContact(contactItem: ContactItem) {
         cache.deleteContact(contactItem)
     }
 
     fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>> {
+        Log.i("DataRepository", "getting all contacts")
         return cache.getAllContacts(mainAccountId)
     }
 }

@@ -5,19 +5,19 @@ import com.emmm.mobv.data.db.model.ContactItem
 
 class LocalCache(private val dbDao: DbDao) {
 
-    fun insertContacts(contactItems: List<ContactItem>) {
+    suspend fun insertContacts(contactItems: List<ContactItem>) {
         dbDao.insertContacts(contactItems)
     }
 
-    fun insertContact(contactItem: ContactItem) {
+    suspend fun insertContact(contactItem: ContactItem) {
         dbDao.insertContact(contactItem)
     }
 
-    fun updateContact(contactItem: ContactItem) {
+    suspend fun updateContact(contactItem: ContactItem) {
         dbDao.updateContact(contactItem)
     }
 
-    fun deleteContact(contactItem: ContactItem) {
+    suspend fun deleteContact(contactItem: ContactItem) {
         dbDao.deleteContact(contactItem)
     }
 
