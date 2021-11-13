@@ -1,8 +1,6 @@
-package com.emmm.mobv
+package com.emmm.mobv.util
 
-import android.os.AsyncTask
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import org.stellar.sdk.*
 import org.stellar.sdk.requests.PaymentsRequestBuilder
 import org.stellar.sdk.responses.AccountResponse
@@ -14,57 +12,54 @@ import java.io.InputStream
 import java.net.URL
 import java.util.*
 
+class StellarUtil {
 
-class MainViewModel : ViewModel() {
+    companion object {
+        val TESTNET_URL = "https://horizon-testnet.stellar.org"
+        private const val FRIEND_BOT_URL_FORMAT = "https://friendbot.stellar.org/?addr=%s"
 
-    fun createAccount() {
-        AsyncTask.execute {
+        fun createAccount() {
+            Log.i("StellarUtil", "creating new Stellar account")
+
             val pair: KeyPair = KeyPair.random()
 
-            Log.i("TEEEEEEEEEEEEEEEEST", String(pair.secretSeed))
-            Log.i("TEEEEEEEEEEEEEEEEST", pair.accountId)
+            Log.i("StellarUtil", "new account created, accountId = " + pair.accountId)
 
-
-            fundMoney(pair.accountId)
-
-//            checkBalance(pair.accountId)
+            fundMoneyFromFriendBot(pair.accountId)
         }
-    }
 
-    fun fundMoney(accountId: String) {
-        val friendbotUrl = java.lang.String.format(
-            "https://friendbot.stellar.org/?addr=%s",
-            accountId
-        )
-        val response: InputStream = URL(friendbotUrl).openStream()
-        val body: String = Scanner(response, "UTF-8").useDelimiter("\\A").next()
-        Log.i("TEEEEEEEEEEEEEEEEST", "SUCCESS! You have a new account :)\n$body")
-    }
+        private fun fundMoneyFromFriendBot(accountId: String) {
+            Log.i("StellarUtil", "creating new Stellar account")
 
-    fun checkBalance(accountId: String) {
-        AsyncTask.execute {
-            val server = Server("https://horizon-testnet.stellar.org")
+            val friendBotUrl = java.lang.String.format(FRIEND_BOT_URL_FORMAT, accountId)
+            val response: InputStream = URL(friendBotUrl).openStream()
+            val body: String = Scanner(response, "UTF-8").useDelimiter("\\A").next()
+            Log.i("StellarUtil", "successfully funded money to new account \n$body")
+        }
+
+        fun checkBalance(accountId: String) {
+            Log.i("StellarUtil", "checking balance for account $accountId")
+
+            val server = Server(TESTNET_URL)
             val account: AccountResponse = server.accounts().account(accountId)
-            Log.i("TEEEEEEEEEEEEEEEEST", "Balances for account " + accountId)
             val balances = account.balances
             for (balance in balances) {
                 Log.i(
-                    "TEEEEEEEEEEEEEEEEST", String.format(
-                        "Type: %s, Code: %s, Balance: %s%n",
+                    "StellarUtil",
+                    String.format(
+                        "Balance: %s, Type: %s, Code: %s %n",
+                        balance.balance,
                         balance.assetType,
-                        balance.assetCode,
-                        balance.balance
+                        balance.assetCode
                     )
                 )
             }
         }
-    }
 
-    fun sendMoney(fromAccountSecret: String, toAccountId: String, amount: String) {
+        fun sendMoney(fromAccountSecret: String, toAccountId: String, amount: String) {
+            Log.i("StellarUtil", "sending money from $fromAccountSecret to $toAccountId")
 
-        AsyncTask.execute {
-            val server = Server("https://horizon-testnet.stellar.org")
-
+            val server = Server(TESTNET_URL)
             val source = KeyPair.fromSecretSeed(fromAccountSecret)
             val destination = KeyPair.fromAccountId(toAccountId)
 
@@ -85,24 +80,17 @@ class MainViewModel : ViewModel() {
 
             try {
                 val response: SubmitTransactionResponse = server.submitTransaction(transaction)
-                println("Success!")
-                println(response)
+                Log.i("StellarUtil", "sending money successful\n$response")
             } catch (e: Exception) {
-                println("Something went wrong!")
-                println(e.message)
-
+                Log.i("StellarUtil", "error while sending money\n${e.message}")
             }
         }
-    }
 
-    fun showTransactions(accountId: String) {
-        AsyncTask.execute {
+        fun showTransactions(accountId: String) {
             val output: StringBuilder = StringBuilder()
 
-            val server = Server("https://horizon-testnet.stellar.org")
-
+            val server = Server(TESTNET_URL)
             val account = KeyPair.fromAccountId(accountId)
-
             val paymentRequestBuilder: PaymentsRequestBuilder = server.payments().forAccount(account.accountId)
             val operations: ArrayList<OperationResponse> = paymentRequestBuilder.execute().records
 
@@ -127,16 +115,14 @@ class MainViewModel : ViewModel() {
                     output.append("\n to ")
                     output.append(payment.to)
                     output.append("\n\n   ")
-
-                    Log.i("TEEEEEEEEEEEEEEEEST", "transakcie\n\n$output")
                 } else if (payment is CreateAccountOperationResponse) {
                     output.append("Funder ")
                     output.append(payment.funder)
                     output.append("\nStarting balance ")
                     output.append(payment.startingBalance)
-                    Log.i("TEEEEEEEEEEEEEEEEST", "else vetva")
                 }
             }
+            Log.i("StellarUtil", "transactions for $accountId\n$output")
         }
     }
 }
