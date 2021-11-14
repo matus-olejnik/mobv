@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.db.LocalCache
 import com.emmm.mobv.data.db.model.ContactItem
+import com.emmm.mobv.data.db.model.UserAccountItem
 
 class DataRepository private constructor(
     private val cache: LocalCache
@@ -20,6 +21,11 @@ class DataRepository private constructor(
                 INSTANCE
                     ?: DataRepository(cache).also { INSTANCE = it }
             }
+    }
+
+    suspend fun createNewUserAccount(userAccountItem: UserAccountItem) {
+        Log.i("DataRepository", "creating new user account $userAccountItem")
+        cache.createNewUserAccount(userAccountItem)
     }
 
     suspend fun insertContacts(contactItems: List<ContactItem>) {
