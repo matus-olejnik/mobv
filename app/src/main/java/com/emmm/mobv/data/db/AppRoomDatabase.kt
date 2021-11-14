@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.emmm.mobv.data.db.model.ContactItem
+import com.emmm.mobv.data.db.model.UserAccountItem
 
 @Database(
-    entities = [ContactItem::class],
+    entities = [ContactItem::class, UserAccountItem::class],
     version = 1,
     exportSchema = false
 )

@@ -18,18 +18,25 @@ class StellarUtil {
         val TESTNET_URL = "https://horizon-testnet.stellar.org"
         private const val FRIEND_BOT_URL_FORMAT = "https://friendbot.stellar.org/?addr=%s"
 
-        fun createAccount() {
+        suspend fun createAccount(): String {
             Log.i("StellarUtil", "creating new Stellar account")
 
             val pair: KeyPair = KeyPair.random()
 
-            Log.i("StellarUtil", "new account created, accountId = " + pair.accountId)
+            //TODO remove secretSeed logging
+            Log.i(
+                "StellarUtil",
+                "new account created, accountId=${pair.accountId} \nsecretSeed=${pair.secretSeed}"
+            )
 
             fundMoneyFromFriendBot(pair.accountId)
+
+            //TODO ugly but..., change later
+            return pair.secretSeed.toString()
         }
 
-        private fun fundMoneyFromFriendBot(accountId: String) {
-            Log.i("StellarUtil", "creating new Stellar account")
+        private suspend fun fundMoneyFromFriendBot(accountId: String) {
+            Log.i("StellarUtil", "funding money from friend bot")
 
             val friendBotUrl = java.lang.String.format(FRIEND_BOT_URL_FORMAT, accountId)
             val response: InputStream = URL(friendBotUrl).openStream()
@@ -123,6 +130,10 @@ class StellarUtil {
                 }
             }
             Log.i("StellarUtil", "transactions for $accountId\n$output")
+        }
+
+        fun getAccountIdFromSecretSeed(secretSeed: String): String {
+            return KeyPair.fromSecretSeed(secretSeed).accountId
         }
     }
 }

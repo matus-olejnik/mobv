@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.LoginFragmentBinding
+import com.emmm.mobv.util.Injection
 
 class LoginFragment : Fragment() {
+
+    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var binding: LoginFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,6 +24,14 @@ class LoginFragment : Fragment() {
         val binding: LoginFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.login_fragment, container, false
         )
+
+        binding.lifecycleOwner = this
+
+        loginViewModel =
+            ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
+                .get(LoginViewModel::class.java)
+
+        binding.model = loginViewModel
 
         return binding.root
     }

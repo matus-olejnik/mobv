@@ -2,8 +2,13 @@ package com.emmm.mobv.data.db
 
 import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.db.model.ContactItem
+import com.emmm.mobv.data.db.model.UserAccountItem
 
 class LocalCache(private val dbDao: DbDao) {
+
+    suspend fun createNewUserAccount(userAccountItem: UserAccountItem) {
+        dbDao.createNewUserAccount(userAccountItem)
+    }
 
     suspend fun insertContacts(contactItems: List<ContactItem>) {
         dbDao.insertContacts(contactItems)

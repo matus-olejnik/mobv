@@ -35,11 +35,11 @@ class WelcomeFragment : Fragment() {
 
         binding.model = welcomeViewModel
 
-        binding.loginButton.setOnClickListener {
+        binding.toLoginButton.setOnClickListener {
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
         }
 
-        binding.registrationButton.setOnClickListener {
+        binding.toRegistrationButton.setOnClickListener {
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
         }
 
