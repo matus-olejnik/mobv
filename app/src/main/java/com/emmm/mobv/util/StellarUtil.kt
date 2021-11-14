@@ -1,6 +1,7 @@
 package com.emmm.mobv.util
 
 import android.util.Log
+import com.emmm.mobv.data.ApiService
 import org.stellar.sdk.*
 import org.stellar.sdk.requests.PaymentsRequestBuilder
 import org.stellar.sdk.responses.AccountResponse
@@ -8,15 +9,14 @@ import org.stellar.sdk.responses.SubmitTransactionResponse
 import org.stellar.sdk.responses.operations.CreateAccountOperationResponse
 import org.stellar.sdk.responses.operations.OperationResponse
 import org.stellar.sdk.responses.operations.PaymentOperationResponse
-import java.io.InputStream
-import java.net.URL
-import java.util.*
+import retrofit2.Retrofit
 
 class StellarUtil {
 
     companion object {
+
         val TESTNET_URL = "https://horizon-testnet.stellar.org"
-        private const val FRIEND_BOT_URL_FORMAT = "https://friendbot.stellar.org/?addr=%s"
+        private const val FRIEND_BOT_URL = "https://friendbot.stellar.org"
 
         suspend fun createAccount(): String {
             Log.i("StellarUtil", "creating new Stellar account")
@@ -26,22 +26,31 @@ class StellarUtil {
             //TODO remove secretSeed logging
             Log.i(
                 "StellarUtil",
-                "new account created, accountId=${pair.accountId} \nsecretSeed=${pair.secretSeed}"
+                "new account created, accountId=${pair.accountId}\nsecretSeed=${String(pair.secretSeed)}"
             )
 
             fundMoneyFromFriendBot(pair.accountId)
 
             //TODO ugly but..., change later
-            return pair.secretSeed.toString()
+            return String(pair.secretSeed)
         }
 
         private suspend fun fundMoneyFromFriendBot(accountId: String) {
-            Log.i("StellarUtil", "funding money from friend bot")
+            Log.i("StellarUtil", "funding money from friend bot, accountId=$accountId")
 
-            val friendBotUrl = java.lang.String.format(FRIEND_BOT_URL_FORMAT, accountId)
-            val response: InputStream = URL(friendBotUrl).openStream()
-            val body: String = Scanner(response, "UTF-8").useDelimiter("\\A").next()
-            Log.i("StellarUtil", "successfully funded money to new account \n$body")
+            val retrofit = Retrofit.Builder()
+                .baseUrl(FRIEND_BOT_URL)
+                .build()
+
+            val service = retrofit.create(ApiService::class.java)
+
+            val response = service.callFriendBot(accountId)
+
+            if (response.isSuccessful) {
+                Log.i("StellarUtil", "successfully funded money to new account \n$response")
+            } else {
+                Log.i("StellarUtil", "error while funding money from friend bot\n${response}")
+            }
         }
 
         fun checkBalance(accountId: String) {
