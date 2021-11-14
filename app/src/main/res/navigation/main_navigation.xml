@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 2019 Google Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:startDestination="@id/main_fragment">
+
+    <fragment
+            android:id="@+id/main_fragment"
+            android:name="com.emmm.mobv.screens.main.MainFragment"
+            android:label="main_fragment"
+            tools:layout="@layout/main_fragment">
+        <action
+                android:id="@+id/action_main_fragment_to_transactions_fragment"
+                app:destination="@id/transactions_fragment"/>
+        <action
+                android:id="@+id/action_main_fragment_to_contacts_fragment"
+                app:destination="@id/contacts_fragment"/>
+        <action
+                android:id="@+id/action_main_fragment_to_orders_fragment"
+                app:destination="@id/orders_fragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/contacts_fragment"
+            android:name="com.emmm.mobv.screens.contacts.ContactsFragment"
+            android:label="contacts_fragment"
+            tools:layout="@layout/contacts_fragment">
+        <action
+                android:id="@+id/action_contacts_fragment_to_orders_fragment2"
+                app:destination="@id/orders_fragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/transactions_fragment"
+            android:name="com.emmm.mobv.screens.transactions.TransactionsFragment"
+            android:label="transactions_fragment"
+            tools:layout="@layout/transactions_fragment">
+        <action
+                android:id="@+id/action_transactions_fragment_to_orders_fragment2"
+                app:destination="@id/orders_fragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/orders_fragment"
+            android:name="com.emmm.mobv.screens.orders.OrdersFragment"
+            android:label="orders_fragment"
+            tools:layout="@layout/orders_fragment"/>
+</navigation>
