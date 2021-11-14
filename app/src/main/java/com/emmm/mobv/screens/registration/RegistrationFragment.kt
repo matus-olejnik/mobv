@@ -33,6 +33,14 @@ class RegistrationFragment : Fragment() {
 
         binding.model = registrationViewModel
 
+        registrationViewModel.registrationPhase.observe(viewLifecycleOwner) {
+            if (it == RegistrationViewModel.REGISTRATION_STARTED) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else if (it == RegistrationViewModel.REGISTRATION_FINISHED) {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
         return binding.root
     }
 }
