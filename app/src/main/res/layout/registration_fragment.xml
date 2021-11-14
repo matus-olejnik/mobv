@@ -19,7 +19,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
                 name="model"
                 type="com.emmm.mobv.screens.registration.RegistrationViewModel"/>
@@ -64,9 +64,9 @@
                 android:indeterminate="true"
                 android:max="100"
                 android:minWidth="200dp"
-                android:minHeight="50dp"
-                android:visibility="gone"
-                android:layout_centerInParent="true"
+            android:minHeight="50dp"
+            android:visibility="@{(model.progressBarVisibility == View.VISIBLE ? View.VISIBLE : (model.progressBarVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
+            android:layout_centerInParent="true"
                 android:progress="0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
