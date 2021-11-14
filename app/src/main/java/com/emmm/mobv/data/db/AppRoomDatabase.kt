@@ -9,7 +9,7 @@ import com.emmm.mobv.data.db.model.UserAccountItem
 
 @Database(
     entities = [ContactItem::class, UserAccountItem::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 abstract class AppRoomDatabase : RoomDatabase() {
