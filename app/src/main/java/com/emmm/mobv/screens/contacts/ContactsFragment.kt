@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.ContactsFragmentBinding
+import com.emmm.mobv.screens.main.MainViewModel
 import com.emmm.mobv.util.Injection
 
 class ContactsFragment : Fragment() {
 
     private lateinit var contactsViewModel: ContactsViewModel
+    private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ContactsFragmentBinding
 
     override fun onCreateView(
@@ -31,6 +33,10 @@ class ContactsFragment : Fragment() {
             ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
                 .get(ContactsViewModel::class.java)
 
+        mainViewModel =
+            ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
+                .get(MainViewModel::class.java)
+
         binding.model = contactsViewModel
 
         binding.contactList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -42,6 +48,16 @@ class ContactsFragment : Fragment() {
         binding.contactList.adapter = adapter
         contactsViewModel.contacts.observe(viewLifecycleOwner) { adapter.contacts = it }
 
+        binding.saveButton.setOnClickListener {
+            contactsViewModel.insertContact(mainViewModel.actAccountId.value!!)
+        }
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        contactsViewModel.fetchContacts(mainViewModel.actAccountId.value!!)
     }
 }

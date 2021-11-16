@@ -33,7 +33,7 @@ class ViewModelFactory(private val repository: DataRepository) : ViewModelProvid
 
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MainViewModel() as T
+            return MainViewModel(repository) as T
         }
 
         if (modelClass.isAssignableFrom(ContactsViewModel::class.java)) {

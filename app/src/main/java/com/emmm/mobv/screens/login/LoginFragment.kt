@@ -13,6 +13,7 @@ import com.emmm.mobv.R
 import com.emmm.mobv.databinding.LoginFragmentBinding
 import com.emmm.mobv.util.Injection
 
+
 class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
@@ -37,7 +38,10 @@ class LoginFragment : Fragment() {
 
         loginViewModel.action.observe(viewLifecycleOwner) {
             if (it.action == LoginViewModel.Action.SHOW_MAIN_ACTIVITY) {
-                startActivity(Intent(activity, MainActivity::class.java))
+                val intent = Intent(activity, MainActivity::class.java)
+                intent.putExtra("accountId", loginViewModel.accountId.value)
+
+                startActivity(intent)
             }
         }
 

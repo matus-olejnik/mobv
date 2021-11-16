@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class UserAccountItem(
     @PrimaryKey val accountId: String,
     val secretSeedEncrypted: String,
-    val moneyBalance: String? //TODO change to BigDecimal, now String because of converter needed
+    var moneyBalance: String? //TODO change to BigDecimal, now String because of converter needed
 )

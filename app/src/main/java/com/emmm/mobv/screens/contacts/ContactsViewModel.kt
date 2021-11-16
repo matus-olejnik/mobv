@@ -1,7 +1,6 @@
 package com.emmm.mobv.screens.contacts;
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,27 +11,29 @@ import java.util.*
 
 class ContactsViewModel(private val repository: DataRepository) : ViewModel() {
 
-    private val mainAccountId = "testAccountId" //TODO change "testAccountId" dynamically
-
-    val contacts: LiveData<List<ContactItem>>
-        get() = repository.getAllContacts(mainAccountId)
+    val contacts: MutableLiveData<List<ContactItem>> = MutableLiveData()
 
     val contactNameEditText: MutableLiveData<String> = MutableLiveData()
 
     val contactAccountIdEditText: MutableLiveData<String> = MutableLiveData()
 
-    fun insertContact() {
+    fun insertContact(accountId: String) {
         viewModelScope.launch {
             val contactItem = ContactItem(
                 UUID.randomUUID().toString(),
                 contactNameEditText.value ?: "Nezadane meno",
-                mainAccountId,
+                accountId,
                 contactAccountIdEditText.value ?: "Nezadane account id"
             )
             Log.i("ContactsViewModel", "inserting $contactItem")
 
             repository.insertContact(contactItem)
         }
+    }
 
+    fun fetchContacts(accountId: String) {
+        viewModelScope.launch {
+            contacts.value = repository.getAllContacts(accountId)
+        }
     }
 }

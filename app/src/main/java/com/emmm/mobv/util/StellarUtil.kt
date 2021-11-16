@@ -4,7 +4,6 @@ import android.util.Log
 import com.emmm.mobv.data.ApiService
 import org.stellar.sdk.*
 import org.stellar.sdk.requests.PaymentsRequestBuilder
-import org.stellar.sdk.responses.AccountResponse
 import org.stellar.sdk.responses.SubmitTransactionResponse
 import org.stellar.sdk.responses.operations.CreateAccountOperationResponse
 import org.stellar.sdk.responses.operations.OperationResponse
@@ -53,23 +52,40 @@ class StellarUtil {
             }
         }
 
-        fun checkBalance(accountId: String) {
+        suspend fun checkBalance(accountId: String): String {
             Log.i("StellarUtil", "checking balance for account $accountId")
 
-            val server = Server(TESTNET_URL)
-            val account: AccountResponse = server.accounts().account(accountId)
-            val balances = account.balances
-            for (balance in balances) {
-                Log.i(
-                    "StellarUtil",
-                    String.format(
-                        "Balance: %s, Type: %s, Code: %s %n",
-                        balance.balance,
-                        balance.assetType,
-                        balance.assetCode
-                    )
-                )
+            val retrofit = Retrofit.Builder()
+                .baseUrl(TESTNET_URL)
+                .build()
+
+            val service = retrofit.create(ApiService::class.java)
+
+            val response = service.getAccountInfo(accountId)
+            Log.i("StellarUtil", "fuwnaifhwiaohfuiwahfuiwa$response")
+
+
+            val output: StringBuilder = StringBuilder()
+
+            if (response.isSuccessful) {
+                Log.i("StellarUtil", "successfully fetched balance \n$response")
+
+//                for (balance in response.body()!!.balances) {
+//                    val actBalance = String.format(
+//                        "Balance: %s, Type: %s, Code: %s %n",
+//                        balance.balance,
+//                        balance.assetType,
+//                        balance.assetCode
+//                    )
+//
+//                    output.append(actBalance)
+//                    Log.i("StellarUtil", actBalance)
+//                }
+            } else {
+                Log.i("StellarUtil", "error while fetching balance\n${response}")
             }
+
+            return output.toString()
         }
 
         fun sendMoney(fromAccountSecret: String, toAccountId: String, amount: String) {

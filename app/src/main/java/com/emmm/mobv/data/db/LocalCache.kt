@@ -1,6 +1,5 @@
 package com.emmm.mobv.data.db
 
-import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.data.db.model.UserAccountItem
 
@@ -8,6 +7,14 @@ class LocalCache(private val dbDao: DbDao) {
 
     suspend fun createNewUserAccount(userAccountItem: UserAccountItem) {
         dbDao.createNewUserAccount(userAccountItem)
+    }
+
+    suspend fun getUserAccountItem(accountId: String): UserAccountItem {
+        return dbDao.getUserAccountItem(accountId)
+    }
+
+    suspend fun updateUserAccountItem(userAccountItem: UserAccountItem) {
+        dbDao.updateUserAccountItem(userAccountItem)
     }
 
     suspend fun insertContacts(contactItems: List<ContactItem>) {
@@ -26,7 +33,11 @@ class LocalCache(private val dbDao: DbDao) {
         dbDao.deleteContact(contactItem)
     }
 
-    fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>> {
+    suspend fun getAllContacts(mainAccountId: String): List<ContactItem> {
         return dbDao.getAllContacts(mainAccountId)
+    }
+
+    fun getActualUserAccountId(): String {
+        return dbDao.getActualUserAccountId()
     }
 }

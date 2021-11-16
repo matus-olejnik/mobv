@@ -40,6 +40,14 @@ class MainFragment : Fragment() {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment())
         }
 
+//        mainViewModel.moneyBalanceTextView.observe(viewLifecycleOwner) {
+//            moneyBalanceTextView.text = it
+//        }
+
+        mainViewModel.actAccountId.value = activity?.intent?.extras?.get("accountId").toString()
+
+        binding.model?.fetchActualBalance(mainViewModel.actAccountId.value!!)
+
         return binding.root
     }
 }
