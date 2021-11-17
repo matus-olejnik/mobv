@@ -10,6 +10,14 @@ class LocalCache(private val dbDao: DbDao) {
         dbDao.createNewUserAccount(userAccountItem)
     }
 
+    suspend fun getUserAccountItem(accountId: String): UserAccountItem {
+        return dbDao.getUserAccountItem(accountId)
+    }
+
+    suspend fun updateUserAccountItem(userAccountItem: UserAccountItem) {
+        dbDao.updateUserAccountItem(userAccountItem)
+    }
+
     suspend fun insertContacts(contactItems: List<ContactItem>) {
         dbDao.insertContacts(contactItems)
     }
@@ -28,5 +36,13 @@ class LocalCache(private val dbDao: DbDao) {
 
     fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>> {
         return dbDao.getAllContacts(mainAccountId)
+    }
+
+    fun getActualUserAccountId(): String {
+        return dbDao.getActualUserAccountId()
+    }
+
+    suspend fun deleteUserData(accountId: String) {
+        dbDao.deleteUserData(accountId)
     }
 }

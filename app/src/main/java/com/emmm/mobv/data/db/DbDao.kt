@@ -11,6 +11,12 @@ interface DbDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createNewUserAccount(userAccountItem: UserAccountItem)
 
+    @Query("SELECT * FROM user_account WHERE accountId = :accountId")
+    suspend fun getUserAccountItem(accountId: String): UserAccountItem
+
+    @Update
+    suspend fun updateUserAccountItem(userAccountItem: UserAccountItem)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertContacts(contactItems: List<ContactItem>)
 
@@ -25,4 +31,10 @@ interface DbDao {
 
     @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId")
     fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>>
+
+    @Query("SELECT ua.accountId FROM user_account ua LIMIT 1")
+    fun getActualUserAccountId(): String
+
+    @Query("DELETE FROM user_account WHERE accountId = :accountId")
+    suspend fun deleteUserData(accountId: String)
 }

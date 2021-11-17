@@ -15,23 +15,24 @@ class LoginViewModel(private val repository: DataRepository) : ViewModel() {
     val pinEditText: MutableLiveData<String> = MutableLiveData()
 
     var action: MutableLiveData<Action> = MutableLiveData()
+    var accountId: MutableLiveData<String> = MutableLiveData()
 
     fun loginNewUser() {
         viewModelScope.launch {
-            val accountId = StellarUtil.getAccountIdFromSecretSeed(secretSeedEditText.value!!)
+            val actAccountId = StellarUtil.getAccountIdFromSecretSeed(secretSeedEditText.value!!)
 
             val encryptedSecret = CryptoUtil.encrypt(secretSeedEditText.value!!, pinEditText.value!!)
 
             val userAccountItem = UserAccountItem(
-                accountId,
+                actAccountId,
                 encryptedSecret!!,
                 null
             )
 
             repository.createNewUserAccount(userAccountItem)
 
+            accountId.value = actAccountId
             action.value = Action(Action.SHOW_MAIN_ACTIVITY)
-
         }
     }
 

@@ -3,7 +3,6 @@ package com.emmm.mobv.util
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.data.DataRepository
-import com.emmm.mobv.screens.contacts.ContactsViewModel
 import com.emmm.mobv.screens.login.LoginViewModel
 import com.emmm.mobv.screens.main.MainViewModel
 import com.emmm.mobv.screens.registration.RegistrationViewModel
@@ -33,12 +32,7 @@ class ViewModelFactory(private val repository: DataRepository) : ViewModelProvid
 
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MainViewModel() as T
-        }
-
-        if (modelClass.isAssignableFrom(ContactsViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ContactsViewModel(repository) as T
+            return MainViewModel(repository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

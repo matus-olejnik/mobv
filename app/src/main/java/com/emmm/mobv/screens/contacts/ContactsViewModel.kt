@@ -10,29 +10,29 @@ import com.emmm.mobv.data.db.model.ContactItem
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ContactsViewModel(private val repository: DataRepository) : ViewModel() {
-
-    private val mainAccountId = "testAccountId" //TODO change "testAccountId" dynamically
+class ContactsViewModel(
+    private val repository: DataRepository,
+    private val accountId: String
+) : ViewModel() {
 
     val contacts: LiveData<List<ContactItem>>
-        get() = repository.getAllContacts(mainAccountId)
+        get() = repository.getAllContacts(accountId)
 
     val contactNameEditText: MutableLiveData<String> = MutableLiveData()
 
     val contactAccountIdEditText: MutableLiveData<String> = MutableLiveData()
 
-    fun insertContact() {
+    fun insertContact(accountId: String) {
         viewModelScope.launch {
             val contactItem = ContactItem(
                 UUID.randomUUID().toString(),
-                contactNameEditText.value ?: "Nezadane meno",
-                mainAccountId,
-                contactAccountIdEditText.value ?: "Nezadane account id"
+                contactNameEditText.value!!,
+                accountId,
+                contactAccountIdEditText.value!!
             )
             Log.i("ContactsViewModel", "inserting $contactItem")
 
             repository.insertContact(contactItem)
         }
-
     }
 }

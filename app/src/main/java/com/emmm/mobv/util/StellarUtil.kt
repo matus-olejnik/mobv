@@ -4,7 +4,6 @@ import android.util.Log
 import com.emmm.mobv.data.ApiService
 import org.stellar.sdk.*
 import org.stellar.sdk.requests.PaymentsRequestBuilder
-import org.stellar.sdk.responses.AccountResponse
 import org.stellar.sdk.responses.SubmitTransactionResponse
 import org.stellar.sdk.responses.operations.CreateAccountOperationResponse
 import org.stellar.sdk.responses.operations.OperationResponse
@@ -50,25 +49,6 @@ class StellarUtil {
                 Log.i("StellarUtil", "successfully funded money to new account \n$response")
             } else {
                 Log.i("StellarUtil", "error while funding money from friend bot\n${response}")
-            }
-        }
-
-        fun checkBalance(accountId: String) {
-            Log.i("StellarUtil", "checking balance for account $accountId")
-
-            val server = Server(TESTNET_URL)
-            val account: AccountResponse = server.accounts().account(accountId)
-            val balances = account.balances
-            for (balance in balances) {
-                Log.i(
-                    "StellarUtil",
-                    String.format(
-                        "Balance: %s, Type: %s, Code: %s %n",
-                        balance.balance,
-                        balance.assetType,
-                        balance.assetCode
-                    )
-                )
             }
         }
 

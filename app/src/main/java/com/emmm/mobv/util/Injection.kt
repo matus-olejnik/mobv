@@ -3,6 +3,7 @@ package com.emmm.mobv.util
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.data.DataRepository
+import com.emmm.mobv.data.api.WebApi
 import com.emmm.mobv.data.db.AppRoomDatabase
 import com.emmm.mobv.data.db.LocalCache
 
@@ -18,15 +19,19 @@ object Injection {
         return LocalCache(database.appDao())
     }
 
-    fun provideDataRepository(context: Context): DataRepository {
-        return DataRepository.getInstance(provideCache(context))
+    private fun provideWebApi(context: Context): WebApi {
+        return WebApi.create(context)
+    }
+
+    private fun provideDataRepository(context: Context): DataRepository {
+        return DataRepository.getInstance(provideWebApi(context), provideCache(context))
     }
 
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
-        return ViewModelFactory(
-            provideDataRepository(
-                context
-            )
-        )
+        return ViewModelFactory(provideDataRepository(context))
+    }
+
+    fun provideContactsViewModelFactory(context: Context, accountId: String): ViewModelProvider.Factory {
+        return ContactsViewModelFactory(provideDataRepository(context), accountId)
     }
 }
