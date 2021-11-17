@@ -9,7 +9,8 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: DataRepository) : ViewModel() {
 
     val moneyBalanceTextView: MutableLiveData<String> = MutableLiveData("")
-    val actAccountId: MutableLiveData<String> = MutableLiveData()
+
+    val tmpTextView: MutableLiveData<String> = MutableLiveData()
 
     fun fetchActualBalance(accountId: String) {
         viewModelScope.launch {
@@ -18,7 +19,9 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
         }
     }
 
-    fun getActualUserAccountId() {
-
+    fun fetchCurrentUser(accountId: String) {
+        viewModelScope.launch {
+            tmpTextView.value = repository.getUserAccountItem(accountId).toString()
+        }
     }
 }

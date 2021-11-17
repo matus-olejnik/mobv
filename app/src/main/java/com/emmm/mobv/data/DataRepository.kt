@@ -57,19 +57,19 @@ class DataRepository private constructor(
         val output: StringBuilder = StringBuilder()
 
         if (response.isSuccessful) {
-            Log.i("DataRepository", "successfully fetched balance \n$response")
+            Log.i("DataRepository", "successfully fetched balance \n${response}")
 
-//            for (balance in response.body()!!.balances) {
-//                val actBalance = String.format(
-//                    "Balance: %s, Type: %s, Code: %s %n",
-//                    balance.balance,
-//                    balance.assetType,
-//                    balance.assetCode
-//                )
-//
-//                output.append(actBalance)
-//                Log.i("DataRepository", actBalance)
-//            }
+            for (balance in response.body()!!.balances) {
+                val actBalance = String.format(
+                    "Balance: %s, Type: %s, Code: %s %n",
+                    balance.balance,
+                    balance.assetType,
+                    balance.assetCode
+                )
+
+                output.append(actBalance)
+                Log.i("DataRepository", actBalance)
+            }
             val outputString = output.toString()
 
             val userAccountItem = cache.getUserAccountItem(accountId)
@@ -84,7 +84,7 @@ class DataRepository private constructor(
         return ""
     }
 
-    fun getActualUserAccountId(): String {
-        return cache.getActualUserAccountId()
+    suspend fun getUserAccountItem(accountId: String): UserAccountItem {
+        return cache.getUserAccountItem(accountId)
     }
 }

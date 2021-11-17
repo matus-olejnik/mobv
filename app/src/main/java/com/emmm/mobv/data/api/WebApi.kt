@@ -2,7 +2,7 @@ package com.emmm.mobv.data.api
 
 import android.content.Context
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
+import org.stellar.sdk.responses.AccountResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,11 +12,10 @@ import retrofit2.http.Path
 interface WebApi {
 
     @GET("/accounts/{account}")
-    suspend fun getAccountInfo(@Path("account") accountId: String): Response<ResponseBody>
+    suspend fun getAccountInfo(@Path("account") accountId: String): Response<AccountResponse>
 
     companion object {
-        private const val BASE_URL =
-            "https://horizon-testnet.stellar.org"
+        private const val TESTNET_URL = "https://horizon-testnet.stellar.org"
 
         fun create(context: Context): WebApi {
 
@@ -24,7 +23,7 @@ interface WebApi {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(TESTNET_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

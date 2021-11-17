@@ -42,6 +42,9 @@
         <action
                 android:id="@+id/action_contacts_fragment_to_orders_fragment2"
                 app:destination="@id/orders_fragment"/>
+        <argument
+                android:name="accountId"
+                app:argType="string"/>
     </fragment>
     <fragment
             android:id="@+id/transactions_fragment"

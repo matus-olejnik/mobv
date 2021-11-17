@@ -21,9 +21,9 @@ class ContactsViewModel(private val repository: DataRepository) : ViewModel() {
         viewModelScope.launch {
             val contactItem = ContactItem(
                 UUID.randomUUID().toString(),
-                contactNameEditText.value ?: "Nezadane meno",
+                contactNameEditText.value!!,
                 accountId,
-                contactAccountIdEditText.value ?: "Nezadane account id"
+                contactAccountIdEditText.value!!
             )
             Log.i("ContactsViewModel", "inserting $contactItem")
 

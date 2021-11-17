@@ -36,17 +36,14 @@ class MainFragment : Fragment() {
 
         binding.model = mainViewModel
 
+        val actAccountId = activity?.intent?.extras?.get("accountId").toString()
+
         binding.contactsButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment())
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment(actAccountId))
         }
 
-//        mainViewModel.moneyBalanceTextView.observe(viewLifecycleOwner) {
-//            moneyBalanceTextView.text = it
-//        }
-
-        mainViewModel.actAccountId.value = activity?.intent?.extras?.get("accountId").toString()
-
-        binding.model?.fetchActualBalance(mainViewModel.actAccountId.value!!)
+        mainViewModel.fetchActualBalance(actAccountId)
+        mainViewModel.fetchCurrentUser(actAccountId)
 
         return binding.root
     }

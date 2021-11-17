@@ -29,48 +29,31 @@
             android:layout_height="match_parent"
             tools:context=".screens.main.MainFragment">
 
-        <TextView
-                android:id="@+id/welcomeText"
-                android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome Back,"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.133"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.051" />
-
-        <TextView
-                android:id="@+id/nameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tester Account"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.132"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.094"/>
-
         <Button
                 android:text="Kontakty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/contactsButton"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="12dp" app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-
+                android:layout_marginTop="12dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.898"/>
         <TextView
                 android:id="@+id/moneyBalanceTextView"
-                android:layout_width="206dp"
-                android:layout_height="146dp"
+                android:layout_width="335dp"
+                android:layout_height="121dp"
                 android:text="@={model.moneyBalanceTextView}"
                 app:layout_constraintBottom_toTopOf="@+id/contactsButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintVertical_bias="0.737"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.091"/>
+        <TextView
+                android:text="@={model.tmpTextView}"
+                android:layout_width="348dp"
+                android:layout_height="314dp" android:id="@+id/tmpTextView"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/moneyBalanceTextView"
+                app:layout_constraintBottom_toTopOf="@+id/contactsButton"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
