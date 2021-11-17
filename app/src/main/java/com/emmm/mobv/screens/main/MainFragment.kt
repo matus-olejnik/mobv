@@ -1,5 +1,6 @@
 package com.emmm.mobv.screens.main;
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.R
+import com.emmm.mobv.WelcomeActivity
 import com.emmm.mobv.databinding.MainFragmentBinding
 import com.emmm.mobv.util.Injection
 
@@ -42,9 +44,21 @@ class MainFragment : Fragment() {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment(actAccountId))
         }
 
+        binding.logoutButton.setOnClickListener {
+            logout(actAccountId)
+        }
+
         mainViewModel.fetchActualBalance(actAccountId)
         mainViewModel.fetchCurrentUser(actAccountId)
 
         return binding.root
+    }
+
+    private fun logout(actAccountId: String) {
+        mainViewModel.logout(actAccountId)
+        val intent = Intent(activity, WelcomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        activity?.finish()
     }
 }

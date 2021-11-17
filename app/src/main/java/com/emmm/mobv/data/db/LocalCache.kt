@@ -41,4 +41,8 @@ class LocalCache(private val dbDao: DbDao) {
     fun getActualUserAccountId(): String {
         return dbDao.getActualUserAccountId()
     }
+
+    suspend fun deleteUserData(accountId: String) {
+        dbDao.deleteUserData(accountId)
+    }
 }

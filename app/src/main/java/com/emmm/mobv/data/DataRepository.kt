@@ -88,4 +88,8 @@ class DataRepository private constructor(
     suspend fun getUserAccountItem(accountId: String): UserAccountItem {
         return cache.getUserAccountItem(accountId)
     }
+
+    suspend fun deleteUserData(accountId: String) {
+        cache.deleteUserData(accountId)
+    }
 }

@@ -24,4 +24,10 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
             tmpTextView.value = repository.getUserAccountItem(accountId).toString()
         }
     }
+
+    fun logout(accountId: String) {
+        viewModelScope.launch {
+            repository.deleteUserData(accountId)
+        }
+    }
 }

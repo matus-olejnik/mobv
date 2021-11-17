@@ -34,4 +34,7 @@ interface DbDao {
 
     @Query("SELECT ua.accountId FROM user_account ua LIMIT 1")
     fun getActualUserAccountId(): String
+
+    @Query("DELETE FROM user_account WHERE accountId = :accountId")
+    suspend fun deleteUserData(accountId: String)
 }
