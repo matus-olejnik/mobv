@@ -22,16 +22,17 @@ class ContactsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val args = ContactsFragmentArgs.fromBundle(requireArguments())
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater, R.layout.contacts_fragment, container, false
         )
         binding.lifecycleOwner = this
         contactsViewModel =
-            ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
+            ViewModelProvider(this, Injection.provideContactsViewModelFactory(requireContext(), args.accountId))
                 .get(ContactsViewModel::class.java)
-
-        val args = ContactsFragmentArgs.fromBundle(requireArguments())
 
         binding.model = contactsViewModel
 
@@ -50,15 +51,6 @@ class ContactsFragment : Fragment() {
             contactsViewModel.insertContact(args.accountId)
         }
 
-
-
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val args = ContactsFragmentArgs.fromBundle(requireArguments())
-        binding.model?.fetchContacts(args.accountId)
     }
 }

@@ -1,5 +1,6 @@
 package com.emmm.mobv.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.data.db.model.UserAccountItem
@@ -29,7 +30,7 @@ interface DbDao {
     suspend fun deleteContact(contactItem: ContactItem)
 
     @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId")
-    suspend fun getAllContacts(mainAccountId: String): List<ContactItem>
+    fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>>
 
     @Query("SELECT ua.accountId FROM user_account ua LIMIT 1")
     fun getActualUserAccountId(): String

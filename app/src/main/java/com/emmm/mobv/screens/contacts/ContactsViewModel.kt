@@ -1,6 +1,7 @@
 package com.emmm.mobv.screens.contacts;
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,9 +10,13 @@ import com.emmm.mobv.data.db.model.ContactItem
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ContactsViewModel(private val repository: DataRepository) : ViewModel() {
+class ContactsViewModel(
+    private val repository: DataRepository,
+    private val accountId: String
+) : ViewModel() {
 
-    val contacts: MutableLiveData<List<ContactItem>> = MutableLiveData()
+    val contacts: LiveData<List<ContactItem>>
+        get() = repository.getAllContacts(accountId)
 
     val contactNameEditText: MutableLiveData<String> = MutableLiveData()
 
@@ -28,12 +33,6 @@ class ContactsViewModel(private val repository: DataRepository) : ViewModel() {
             Log.i("ContactsViewModel", "inserting $contactItem")
 
             repository.insertContact(contactItem)
-        }
-    }
-
-    fun fetchContacts(accountId: String) {
-        viewModelScope.launch {
-            contacts.value = repository.getAllContacts(accountId)
         }
     }
 }

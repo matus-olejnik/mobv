@@ -30,4 +30,8 @@ object Injection {
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
         return ViewModelFactory(provideDataRepository(context))
     }
+
+    fun provideContactsViewModelFactory(context: Context, accountId: String): ViewModelProvider.Factory {
+        return ContactsViewModelFactory(provideDataRepository(context), accountId)
+    }
 }

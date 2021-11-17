@@ -1,6 +1,7 @@
 package com.emmm.mobv.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.api.WebApi
 import com.emmm.mobv.data.db.LocalCache
 import com.emmm.mobv.data.db.model.ContactItem
@@ -44,7 +45,7 @@ class DataRepository private constructor(
         cache.deleteContact(contactItem)
     }
 
-    suspend fun getAllContacts(mainAccountId: String): List<ContactItem> {
+    fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>> {
         Log.i("DataRepository", "getting all contacts")
         return cache.getAllContacts(mainAccountId)
     }
