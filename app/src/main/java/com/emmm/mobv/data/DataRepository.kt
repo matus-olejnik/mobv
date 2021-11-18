@@ -6,6 +6,10 @@ import com.emmm.mobv.data.api.WebApi
 import com.emmm.mobv.data.db.LocalCache
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.data.db.model.UserAccountItem
+import com.emmm.mobv.util.CryptoUtil
+import com.emmm.mobv.util.StellarUtil
+import org.stellar.sdk.*
+import org.stellar.sdk.responses.SubmitTransactionResponse
 
 class DataRepository private constructor(
     private val api: WebApi,
@@ -85,7 +89,42 @@ class DataRepository private constructor(
         return ""
     }
 
+    suspend fun sendMoney(fromAccountId: String, toAccountId: String, amount: String, pinCode: String) {
+        Log.i("DataRepository", "sending money from $fromAccountId to $toAccountId")
+
+        val userAccountItem = getUserAccountItem(fromAccountId)
+
+        val fromAccountSecret = CryptoUtil.decrypt(userAccountItem.secretSeedEncrypted, pinCode)!!
+
+        val server = Server(StellarUtil.TESTNET_URL)
+        val source = KeyPair.fromSecretSeed(fromAccountSecret)
+        val destination = KeyPair.fromAccountId(toAccountId)
+
+        server.accounts().account(source.accountId)
+        server.accounts().account(destination.accountId)
+
+        val sourceAccount = server.accounts().account(source.accountId)
+
+        val transaction: Transaction = Transaction.Builder(sourceAccount, Network.TESTNET)
+            .addOperation(
+                PaymentOperation.Builder(destination.accountId, AssetTypeNative(), amount).build()
+            )
+            .addMemo(Memo.text("Test Transaction"))
+            .setTimeout(180)
+            .setBaseFee(Transaction.MIN_BASE_FEE)
+            .build()
+        transaction.sign(source)
+
+        try {
+            val response: SubmitTransactionResponse = server.submitTransaction(transaction)
+            Log.i("DataRepository", "sending money successful\n$response")
+        } catch (e: Exception) {
+            Log.i("DataRepository", "error while sending money\n${e.message}")
+        }
+    }
+
     suspend fun getUserAccountItem(accountId: String): UserAccountItem {
+        Log.i("DataRepository", "getting user account item for accountId=${accountId}")
         return cache.getUserAccountItem(accountId)
     }
 
