@@ -16,13 +16,18 @@ class OrdersViewModel(private val repository: DataRepository) : ViewModel() {
     val eventSendMoney: LiveData<Boolean>
         get() = _eventSendMoney
 
+    private val _eventMoneySent = MutableLiveData<Boolean>()
+    val eventMoneySent: LiveData<Boolean>
+        get() = _eventMoneySent
+
     fun onSendMoney() {
         _eventSendMoney.value = true
     }
 
-    fun sendMoney(contactAccountId: String) {
+    fun sendMoney(fromAccountId: String, toAccountId: String) {
         viewModelScope.launch {
-            repository.sendMoney()
+            _eventMoneySent.value =
+                repository.sendMoney(fromAccountId, toAccountId, amountEditText.value!!, confirmPinEditText.value!!)
         }
     }
 }

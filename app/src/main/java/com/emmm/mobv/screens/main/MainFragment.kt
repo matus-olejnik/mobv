@@ -50,6 +50,7 @@ class MainFragment : Fragment() {
 
         mainViewModel.fetchActualBalance(actAccountId)
         mainViewModel.fetchCurrentUser(actAccountId)
+        mainViewModel.actualAccountId.value = actAccountId
 
         return binding.root
     }
