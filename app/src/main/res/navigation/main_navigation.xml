@@ -59,5 +59,12 @@
             android:id="@+id/orders_fragment"
             android:name="com.emmm.mobv.screens.orders.OrdersFragment"
             android:label="orders_fragment"
-            tools:layout="@layout/orders_fragment"/>
+            tools:layout="@layout/orders_fragment">
+        <argument
+                android:name="contactName"
+                app:argType="string"/>
+        <argument
+                android:name="contactAccountId"
+                app:argType="string"/>
+    </fragment>
 </navigation>

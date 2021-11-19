@@ -25,10 +25,10 @@ class RegistrationFragment : Fragment() {
             inflater, R.layout.registration_fragment, container, false
         )
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         registrationViewModel =
-            ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
+            ViewModelProvider(requireActivity(), Injection.provideViewModelFactory(requireContext()))
                 .get(RegistrationViewModel::class.java)
 
         binding.model = registrationViewModel

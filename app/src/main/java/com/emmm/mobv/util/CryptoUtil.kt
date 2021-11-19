@@ -1,6 +1,7 @@
 package com.emmm.mobv.util
 
 import android.util.Base64
+import android.util.Log
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -30,6 +31,7 @@ class CryptoUtil {
         }
 
         fun encrypt(strToEncrypt: String, secret: String): String? {
+            Log.i("CryptoUtil", "encrypting")
             try {
                 val secretKeySpec = processKey(secret)
                 val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
@@ -42,6 +44,7 @@ class CryptoUtil {
         }
 
         fun decrypt(strToDecrypt: String?, secret: String): String? {
+            Log.i("CryptoUtil", "decrypting")
             try {
                 val secretKeySpec = processKey(secret)
                 val cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING")

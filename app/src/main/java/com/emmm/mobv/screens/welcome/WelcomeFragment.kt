@@ -26,10 +26,10 @@ class WelcomeFragment : Fragment() {
             inflater, R.layout.welcome_fragment, container, false
         )
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         welcomeViewModel =
             ViewModelProvider(
-                this,
+                requireActivity(),
                 Injection.provideViewModelFactory(requireContext())
             ).get(WelcomeViewModel::class.java)
 

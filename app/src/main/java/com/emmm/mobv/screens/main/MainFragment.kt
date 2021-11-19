@@ -29,10 +29,10 @@ class MainFragment : Fragment() {
             inflater, R.layout.main_fragment, container, false
         )
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         mainViewModel =
             ViewModelProvider(
-                this,
+                requireActivity(),
                 Injection.provideViewModelFactory(requireContext())
             ).get(MainViewModel::class.java)
 
@@ -50,6 +50,7 @@ class MainFragment : Fragment() {
 
         mainViewModel.fetchActualBalance(actAccountId)
         mainViewModel.fetchCurrentUser(actAccountId)
+        mainViewModel.actualAccountId.value = actAccountId
 
         return binding.root
     }

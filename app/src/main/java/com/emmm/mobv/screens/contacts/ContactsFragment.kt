@@ -29,9 +29,12 @@ class ContactsFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.contacts_fragment, container, false
         )
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         contactsViewModel =
-            ViewModelProvider(this, Injection.provideContactsViewModelFactory(requireContext(), args.accountId))
+            ViewModelProvider(
+                requireActivity(),
+                Injection.provideContactsViewModelFactory(requireContext(), args.accountId)
+            )
                 .get(ContactsViewModel::class.java)
 
         binding.model = contactsViewModel

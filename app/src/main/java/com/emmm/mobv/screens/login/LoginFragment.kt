@@ -28,10 +28,10 @@ class LoginFragment : Fragment() {
             inflater, R.layout.login_fragment, container, false
         )
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         loginViewModel =
-            ViewModelProvider(this, Injection.provideViewModelFactory(requireContext()))
+            ViewModelProvider(requireActivity(), Injection.provideViewModelFactory(requireContext()))
                 .get(LoginViewModel::class.java)
 
         binding.model = loginViewModel
