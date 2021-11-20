@@ -19,7 +19,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="model"
             type="com.emmm.mobv.screens.login.LoginViewModel" />
@@ -29,44 +28,120 @@
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.login.LoginFragment"
-        android:background="#6FC53C">
+        android:background="@color/white"
+        tools:context=".screens.login.LoginFragment">
 
-        <EditText
+        <ImageView
+            android:id="@+id/background_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backgroundelemnets"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="-114dp" />
+
+        <ImageView
+            android:id="@+id/login_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/usericon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.18" />
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/secretSeedEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@={model.secretSeedEditText}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColorHint="@color/white"
+            app:hintTextAppearance="@style/MyHintStyle"
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toBottomOf="@+id/background_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.148" />
+            app:layout_constraintTop_toBottomOf="@+id/login_icon"
+            app:layout_constraintVertical_bias="0.146"
+            tools:ignore="MissingConstraints">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/avenir"
+                android:hint="Private Key:"
+                android:inputType="text"
+                android:minWidth="315dp"
+                android:minHeight="32dp"
+                android:text="@={model.secretSeedEditText}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pinEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number"
-            android:text="@={model.pinEditText}"
+            android:textColorHint="@color/white"
+            app:hintTextAppearance="@style/MyHintStyle"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            app:errorEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/secretSeedEditText"
-            app:layout_constraintVertical_bias="0.085" />
+            app:layout_constraintVertical_bias="0.076"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/avenir"
+                android:hint="Pin Code:"
+                android:inputType="numberPassword"
+                android:minWidth="315dp"
+                android:minHeight="32dp"
+                android:text="@={model.pinEditText}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
+            android:layout_width="222dp"
+            android:layout_height="62dp"
+            android:background="@drawable/loginbutton"
             android:onClick="@{() -> model.loginNewUser()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/secretSeedEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/pinEditText"
+            app:layout_constraintVertical_bias="0.15"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/backbutton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
