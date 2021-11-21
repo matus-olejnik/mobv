@@ -11,15 +11,26 @@ class RegistrationViewModel : ViewModel() {
 
     val secretSeedTextView: MutableLiveData<String> = MutableLiveData()
     val progressBarVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
+    val checkboxChecked: MutableLiveData<Boolean> = MutableLiveData(false)
+    val checkboxVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
+    val registrationButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
+    val goToLoginPageButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
+    val errorTextViewVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
 
     fun registerNewUser() {
-        viewModelScope.launch {
-            progressBarVisibility.value = View.VISIBLE
+        if (checkboxChecked.value == true) {
+            viewModelScope.launch {
+                progressBarVisibility.value = View.VISIBLE
 
-            val secretSeed = StellarUtil.createAccount()
-            secretSeedTextView.postValue(secretSeed)
+                val secretSeed = StellarUtil.createAccount()
+                secretSeedTextView.postValue(secretSeed)
 
-            progressBarVisibility.value = View.GONE
+                progressBarVisibility.value = View.GONE
+                checkboxVisibility.value = View.GONE
+
+                registrationButtonVisibility.value = View.GONE
+                goToLoginPageButtonVisibility.value = View.VISIBLE
+            }
         }
     }
 }

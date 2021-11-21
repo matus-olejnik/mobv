@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.MainActivity
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.LoginFragmentBinding
@@ -44,6 +45,10 @@ class LoginFragment : Fragment() {
                 startActivity(intent)
                 activity?.finish()
             }
+        }
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         return binding.root

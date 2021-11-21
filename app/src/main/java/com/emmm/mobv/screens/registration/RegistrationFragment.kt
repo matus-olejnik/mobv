@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.RegistrationFragmentBinding
 import com.emmm.mobv.util.Injection
 
 class RegistrationFragment : Fragment() {
+
 
     private lateinit var registrationViewModel: RegistrationViewModel
     private lateinit var binding: RegistrationFragmentBinding
@@ -32,6 +34,14 @@ class RegistrationFragment : Fragment() {
                 .get(RegistrationViewModel::class.java)
 
         binding.model = registrationViewModel
+
+        binding.goToLoginPageButton.setOnClickListener {
+            findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToLoginFragment())
+        }
+
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         return binding.root
     }

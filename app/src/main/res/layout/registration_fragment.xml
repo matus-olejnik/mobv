@@ -62,17 +62,18 @@
             android:layout_marginTop="36dp"
             android:fontFamily="@font/avenir"
             android:fontWeight="200"
-            android:text="I agree with the general terms and conditions."
+            android:text="@string/agreement"
             android:textColor="#FFFDFD"
             android:textSize="14sp"
-            android:checked="true"
+            android:checked="@={model.checkboxChecked}"
+            android:visibility="@{(model.checkboxVisibility == View.VISIBLE ? View.VISIBLE : (model.checkboxVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
             android:buttonTint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/background_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_icon"
             app:layout_constraintVertical_bias="0.146"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"/>
         <!--With checked property you can set the current state of the check box-->
 
         <TextView
@@ -92,7 +93,26 @@
             app:layout_constraintHorizontal_bias="0.532"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_icon"
-            app:layout_constraintVertical_bias="0.229" />
+            app:layout_constraintVertical_bias="0.229"/>
+
+        <TextView
+            android:id="@+id/errorTextView"
+            android:layout_width="319dp"
+            android:layout_height="53dp"
+            android:fontFamily="@font/avenir"
+            android:fontWeight="200"
+            android:text="@string/terms_and_conditions"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textIsSelectable="true"
+            android:textSize="12sp"
+            android:visibility="@{(model.checkboxChecked == true ? View.GONE : (model.checkboxChecked == false ? View.VISIBLE : View.INVISIBLE))}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_icon"
+            app:layout_constraintVertical_bias="0.788"/>
 
         <ProgressBar
             android:id="@+id/progress_Bar"
@@ -120,6 +140,7 @@
             android:layout_height="62dp"
             android:background="@drawable/registerbutton"
             android:onClick="@{() -> model.registerNewUser()}"
+            android:visibility="@{(model.registrationButtonVisibility == View.VISIBLE ? View.VISIBLE : (model.registrationButtonVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -129,11 +150,11 @@
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/goToLoginPage"
+            android:id="@+id/goToLoginPageButton"
             android:layout_width="222dp"
             android:layout_height="62dp"
             android:background="@drawable/gotologinpagebutton"
-            android:visibility="invisible"
+            android:visibility="@{(model.goToLoginPageButtonVisibility == View.VISIBLE ? View.VISIBLE : (model.goToLoginPageButtonVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

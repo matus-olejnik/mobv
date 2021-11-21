@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Crypto wallet</string>
+    <string name="agreement">I agree with the general terms and conditions.</string>
+    <string name="terms_and_conditions">Before you can complete your registration, you must accept our Terms and
+        Conditions
+    </string>
 </resources>
