@@ -1,5 +1,8 @@
 package com.emmm.mobv.screens.welcome;
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,13 +39,30 @@ class WelcomeFragment : Fragment() {
         binding.model = welcomeViewModel
 
         binding.toLoginButton.setOnClickListener {
+            if (checkInternetConnection(activity?.applicationContext!!))
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
         }
 
         binding.toRegistrationButton.setOnClickListener {
+            if (checkInternetConnection(activity?.applicationContext!!))
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
         }
 
         return binding.root
+    }
+
+    private fun checkInternetConnection(context: Context) : Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                return true
+            }
+        }
+        return false
     }
 }

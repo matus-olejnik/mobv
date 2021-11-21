@@ -4,4 +4,5 @@
     <string name="terms_and_conditions">Before you can complete your registration, you must accept our Terms and
         Conditions
     </string>
+    <string name="error_public_key">Error: public key you typed is incorrect</string>
 </resources>
