@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.OrdersFragmentBinding
-import com.emmm.mobv.screens.main.MainViewModel
 import com.emmm.mobv.util.Injection
 
 class OrdersFragment : Fragment() {
     private lateinit var ordersViewModel: OrdersViewModel
-    private lateinit var mainViewModel: MainViewModel
+    private val mainBaseViewModel: MainBaseViewModel by activityViewModels()
     private lateinit var binding: OrdersFragmentBinding
 
     override fun onCreateView(
@@ -34,15 +35,12 @@ class OrdersFragment : Fragment() {
         ordersViewModel =
             ViewModelProvider(requireActivity(), Injection.provideViewModelFactory(requireContext()))
                 .get(OrdersViewModel::class.java)
-        mainViewModel =
-            ViewModelProvider(requireActivity(), Injection.provideViewModelFactory(requireContext()))
-                .get(MainViewModel::class.java)
 
         binding.model = ordersViewModel
 
         ordersViewModel.eventSendMoney.observe(viewLifecycleOwner) { event ->
             if (event) {
-                ordersViewModel.sendMoney(mainViewModel.actualAccountId.value!!, args.contactAccountId)
+                ordersViewModel.sendMoney(mainBaseViewModel.actualAccountId.value!!, args.contactAccountId)
             }
         }
 
