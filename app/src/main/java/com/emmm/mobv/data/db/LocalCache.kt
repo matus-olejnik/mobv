@@ -2,6 +2,7 @@ package com.emmm.mobv.data.db
 
 import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.db.model.ContactItem
+import com.emmm.mobv.data.db.model.TransactionItem
 import com.emmm.mobv.data.db.model.UserAccountItem
 
 class LocalCache(private val dbDao: DbDao) {
@@ -44,5 +45,13 @@ class LocalCache(private val dbDao: DbDao) {
 
     suspend fun deleteUserData(accountId: String) {
         dbDao.deleteUserData(accountId)
+    }
+
+    fun getAllTransactions(mainAccountId: String): LiveData<List<TransactionItem>> {
+        return dbDao.getAllTransactions(mainAccountId)
+    }
+
+    suspend fun insertTransaction(transactionItem: TransactionItem) {
+        dbDao.insertTransaction(transactionItem)
     }
 }

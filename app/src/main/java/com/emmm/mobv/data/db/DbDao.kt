@@ -3,6 +3,7 @@ package com.emmm.mobv.data.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.emmm.mobv.data.db.model.ContactItem
+import com.emmm.mobv.data.db.model.TransactionItem
 import com.emmm.mobv.data.db.model.UserAccountItem
 
 @Dao
@@ -37,4 +38,10 @@ interface DbDao {
 
     @Query("DELETE FROM user_account WHERE accountId = :accountId")
     suspend fun deleteUserData(accountId: String)
+
+    @Query("SELECT * FROM transaction_tbl WHERE ownerAccountId = :accountId ORDER BY createdAt")
+    fun getAllTransactions(accountId: String): LiveData<List<TransactionItem>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTransaction(transactionItem: TransactionItem)
 }
