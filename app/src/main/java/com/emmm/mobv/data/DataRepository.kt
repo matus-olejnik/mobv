@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.api.WebApi
 import com.emmm.mobv.data.db.LocalCache
 import com.emmm.mobv.data.db.model.ContactItem
+import com.emmm.mobv.data.db.model.TransactionItem
 import com.emmm.mobv.data.db.model.UserAccountItem
 import com.emmm.mobv.util.CryptoUtil
 import com.emmm.mobv.util.StellarUtil
@@ -12,8 +13,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.stellar.sdk.*
+import org.stellar.sdk.requests.PaymentsRequestBuilder
 import org.stellar.sdk.responses.AccountResponse
 import org.stellar.sdk.responses.SubmitTransactionResponse
+import org.stellar.sdk.responses.operations.CreateAccountOperationResponse
+import org.stellar.sdk.responses.operations.OperationResponse
+import org.stellar.sdk.responses.operations.PaymentOperationResponse
 
 class DataRepository private constructor(
     private val api: WebApi,
@@ -47,6 +52,10 @@ class DataRepository private constructor(
         cache.insertContact(contactItem)
     }
 
+    suspend fun insertTransaction(transactionItem: TransactionItem) {
+        cache.insertTransaction(transactionItem)
+    }
+
     suspend fun updateContact(contactItem: ContactItem) {
         cache.updateContact(contactItem)
     }
@@ -58,6 +67,11 @@ class DataRepository private constructor(
     fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>> {
         Log.i("DataRepository", "getting all contacts")
         return cache.getAllContacts(mainAccountId)
+    }
+
+    fun getAllTransactions(mainAccountId: String): LiveData<List<TransactionItem>> {
+        Log.i("DataRepository", "getting all transactions")
+        return cache.getAllTransactions(mainAccountId)
     }
 
     suspend fun getActualBalance(accountId: String): String {
@@ -134,6 +148,59 @@ class DataRepository private constructor(
                 false
             }
         }
+
+    suspend fun fetchTransactions(accountId: String) = withContext(ioDispatcher) {
+        val output: StringBuilder = StringBuilder()
+
+        val server = Server(StellarUtil.TESTNET_URL)
+        val account = KeyPair.fromAccountId(accountId)
+        val paymentRequestBuilder: PaymentsRequestBuilder = server.payments().forAccount(account.accountId)
+        val operations: ArrayList<OperationResponse> = paymentRequestBuilder.execute().records
+
+        for (payment in operations) {
+            if (payment is PaymentOperationResponse) {
+                val amount: String = payment.amount
+                val asset: Asset = payment.asset
+                val assetName: String = if (asset == AssetTypeNative()) {
+                    "lumens"
+                } else {
+                    val assetNameBuilder: StringBuilder = StringBuilder()
+                    assetNameBuilder.append(((asset as AssetTypeCreditAlphaNum).code))
+                    assetNameBuilder.append(":")
+                    assetNameBuilder.append(asset.issuer)
+                    assetNameBuilder.toString()
+                }
+                output.append(amount)
+                output.append(" ")
+                output.append(assetName)
+                output.append("\n hash ")
+                output.append(payment.transactionHash)
+                output.append("\n from ")
+                output.append(payment.from)
+                output.append("\n to ")
+                output.append(payment.to)
+                output.append("\n\n   ")
+
+                val transactionItem = TransactionItem(
+                    payment.transactionHash,
+                    accountId,
+                    payment.from,
+                    payment.to,
+                    payment.amount,
+                    assetName,
+                    payment.createdAt
+                )
+                insertTransaction(transactionItem)
+
+            } else if (payment is CreateAccountOperationResponse) {
+                output.append("Funder ")
+                output.append(payment.funder)
+                output.append("\nStarting balance ")
+                output.append(payment.startingBalance)
+            }
+        }
+        Log.i("DataRepository", "transactions for $accountId\n$output")
+    }
 
     suspend fun getUserAccountItem(accountId: String): UserAccountItem {
         Log.i("DataRepository", "getting user account item for accountId=${accountId}")

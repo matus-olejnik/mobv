@@ -34,4 +34,8 @@ object Injection {
     fun provideContactsViewModelFactory(context: Context, accountId: String): ViewModelProvider.Factory {
         return ContactsViewModelFactory(provideDataRepository(context), accountId)
     }
+
+    fun provideTransactionsViewModelFactory(context: Context, accountId: String): ViewModelProvider.Factory {
+        return TransactionsViewModelFactory(provideDataRepository(context), accountId)
+    }
 }

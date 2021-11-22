@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <import type="com.emmm.mobv.util.BaseUtil"/>
+
+        <variable
+                name="transactionItemDto"
+                type="com.emmm.mobv.screens.transactions.TransactionItemDto"/>
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+        <LinearLayout
+                android:id="@+id/item_header_container"
+                android:layout_width="375dp"
+                android:layout_height="149dp"
+                android:orientation="vertical">
+
+
+            <TextView
+                    android:text="@{transactionItemDto.subject}"
+                    android:layout_width="365dp"
+                    android:layout_height="wrap_content" android:id="@+id/transactionSubjectTextView"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:text="@{transactionItemDto.createdAt}"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content" android:id="@+id/transactionCreatedAtTextView"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:text="@{transactionItemDto.income ? transactionItemDto.amount : ('-' + transactionItemDto.amount)}"
+                    android:layout_width="355dp"
+                    android:background="@{BaseUtil.convertColorToDrawable(transactionItemDto.income, @color/teal_200, @color/background)}"
+                    android:layout_height="wrap_content" android:id="@+id/transactionContactAccountIdTextView"
+                    android:layout_weight="1"
+
+            />
+            <TextView
+                    android:text="@{transactionItemDto.assetName}"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content" android:id="@+id/transactionAssetNameTextView"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>
