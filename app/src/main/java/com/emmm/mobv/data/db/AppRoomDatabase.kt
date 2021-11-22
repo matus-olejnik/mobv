@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.emmm.mobv.data.db.model.ContactItem
+import com.emmm.mobv.data.db.model.TransactionItem
 import com.emmm.mobv.data.db.model.UserAccountItem
 
 @Database(
-    entities = [ContactItem::class, UserAccountItem::class],
-    version = 4,
+    entities = [ContactItem::class, UserAccountItem::class, TransactionItem::class],
+    version = 6,
     exportSchema = false
 )
 abstract class AppRoomDatabase : RoomDatabase() {
