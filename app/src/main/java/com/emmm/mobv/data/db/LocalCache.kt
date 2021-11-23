@@ -39,6 +39,10 @@ class LocalCache(private val dbDao: DbDao) {
         return dbDao.getAllContacts(mainAccountId)
     }
 
+    suspend fun getAllContacts2(mainAccountId: String): List<ContactItem> {
+        return dbDao.getAllContacts2(mainAccountId)
+    }
+
     fun getActualUserAccountId(): String {
         return dbDao.getActualUserAccountId()
     }

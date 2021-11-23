@@ -1,9 +1,13 @@
 package com.emmm.mobv.screens.orders;
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -11,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
+import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.databinding.OrdersFragmentBinding
 import com.emmm.mobv.util.Injection
 
@@ -38,18 +43,63 @@ class OrdersFragment : Fragment() {
 
         binding.model = ordersViewModel
 
-        ordersViewModel.eventSendMoney.observe(viewLifecycleOwner) { event ->
-            if (event) {
-                ordersViewModel.sendMoney(mainBaseViewModel.actualAccountId.value!!, args.contactAccountId)
-            }
-        }
-
         ordersViewModel.eventMoneySent.observe(viewLifecycleOwner) { event ->
             val text = if (event == true) "Odoslanie uspesne" else "Odoslanie NEUSPESNE"
             Toast.makeText(context, text, Toast.LENGTH_LONG).show()
         }
 
+        val contactList = ArrayList<ContactItem>()
+        val adapter = CustomContactSpinnerAdapter(context!!, android.R.layout.simple_spinner_item, contactList)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.contactNamesSpinner.adapter = adapter
+
+        ordersViewModel.contactsList.observe(viewLifecycleOwner) {
+            Log.i("aaa", "dwadwa")
+            contactList.clear()
+            contactList.addAll(it)
+            adapter.notifyDataSetChanged()
+        }
+
+        ordersViewModel.eventSendMoney.observe(viewLifecycleOwner) { event ->
+            if (event) {
+//                ordersViewModel.sendMoney(mainBaseViewModel.actualAccountId.value!!, args.contactAccountId) //TODO
+                ordersViewModel.sendMoney(
+                    mainBaseViewModel.actualAccountId.value!!,
+                    (binding.contactNamesSpinner.selectedItem as ContactItem).contactAccountId
+                )
+            }
+        }
+
+        ordersViewModel.fetchAllContacts(mainBaseViewModel.actualAccountId.value!!)
 
         return binding.root
+    }
+
+    class CustomContactSpinnerAdapter(
+        context: Context,
+        textViewResourceId: Int,
+        val list: List<ContactItem>
+    ) : ArrayAdapter<ContactItem>(
+        context,
+        textViewResourceId,
+        list
+    ) {
+        override fun getCount() = list.size
+
+        override fun getItem(position: Int) = list[position]
+
+        override fun getItemId(position: Int) = position.toLong()
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            return (super.getDropDownView(position, convertView, parent) as TextView).apply {
+                text = list[position].name
+            }
+        }
+
+        override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+            return (super.getDropDownView(position, convertView, parent) as TextView).apply {
+                text = list[position].name
+            }
+        }
     }
 }

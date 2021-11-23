@@ -69,6 +69,11 @@ class DataRepository private constructor(
         return cache.getAllContacts(mainAccountId)
     }
 
+    suspend fun getAllContacts2(mainAccountId: String): List<ContactItem> {
+        Log.i("DataRepository", "getting all contacts")
+        return cache.getAllContacts2(mainAccountId)
+    }
+
     fun getAllTransactions(mainAccountId: String): LiveData<List<TransactionItem>> {
         Log.i("DataRepository", "getting all transactions")
         return cache.getAllTransactions(mainAccountId)

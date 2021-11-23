@@ -24,47 +24,61 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".screens.orders.OrdersFragment">
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.orders.OrdersFragment">
 
-        <TextView
-                android:text="@={model.tmp2TextView}"
-                android:layout_width="227dp"
-                android:layout_height="97dp" android:id="@+id/tmp2TextView"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.13" app:layout_constraintHorizontal_bias="0.461"/>
         <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:hint="Ciastka"
-                android:text="@={model.amountEditText}"
-                android:id="@+id/amountEditText"
-                app:layout_constraintTop_toBottomOf="@+id/tmp2TextView"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.106"/>
+            android:id="@+id/amountEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ciastka"
+            android:inputType="number"
+            android:text="@={model.amountEditText}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contactNamesSpinner"
+            app:layout_constraintVertical_bias="0.165" />
+
         <Button
-                android:text="Odoslat"
-                android:onClick="@{() -> model.onSendMoney()}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/sendMoneyButton"
-                app:layout_constraintTop_toBottomOf="@+id/confirmPinEditText"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.282"/>
+            android:text="Odoslat"
+            android:onClick="@{() -> model.onSendMoney()}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendMoneyButton"
+            app:layout_constraintTop_toBottomOf="@+id/confirmPinEditText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.282" />
+
         <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:hint="PIN"
-                android:text="@={model.confirmPinEditText}"
-                android:id="@+id/confirmPinEditText"
-                app:layout_constraintTop_toBottomOf="@+id/amountEditText"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.203"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:hint="PIN"
+            android:text="@={model.confirmPinEditText}"
+            android:id="@+id/confirmPinEditText"
+            app:layout_constraintTop_toBottomOf="@+id/amountEditText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.203"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/contactNamesSpinner"
+            android:layout_width="306dp"
+            android:layout_height="105dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.118" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

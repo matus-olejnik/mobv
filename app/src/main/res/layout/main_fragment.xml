@@ -65,21 +65,37 @@
 
         <Button
                 android:id="@+id/logoutButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Odhlasit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/contactsButton"
-                app:layout_constraintTop_toBottomOf="@+id/tmpTextView"
-                app:layout_constraintVertical_bias="0.357" app:layout_constraintHorizontal_bias="0.793"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Odhlasit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/contactsButton"
+            app:layout_constraintTop_toBottomOf="@+id/tmpTextView"
+            app:layout_constraintVertical_bias="0.357"
+            app:layout_constraintHorizontal_bias="0.793" />
+
         <Button
-                android:text="Transakcie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/toTransactionsButton"
-                app:layout_constraintStart_toEndOf="@+id/contactsButton"
-                app:layout_constraintEnd_toStartOf="@+id/logoutButton"
-                app:layout_constraintTop_toBottomOf="@+id/tmpTextView" app:layout_constraintBottom_toBottomOf="parent"/>
+            android:id="@+id/toTransactionsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transakcie"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/logoutButton"
+            app:layout_constraintHorizontal_bias="0.405"
+            app:layout_constraintStart_toEndOf="@+id/contactsButton"
+            app:layout_constraintTop_toBottomOf="@+id/tmpTextView"
+            app:layout_constraintVertical_bias="0.807" />
+
+        <Button
+            android:id="@+id/toOrdersButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orders"
+            app:layout_constraintBottom_toTopOf="@+id/toTransactionsButton"
+            app:layout_constraintEnd_toStartOf="@+id/logoutButton"
+            app:layout_constraintStart_toEndOf="@+id/contactsButton"
+            app:layout_constraintTop_toBottomOf="@+id/tmpTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

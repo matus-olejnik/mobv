@@ -51,6 +51,10 @@ class MainFragment : Fragment() {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToTransactionsFragment(actAccountId))
         }
 
+        binding.toOrdersButton.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToOrdersFragment("", actAccountId))
+        }
+
         binding.logoutButton.setOnClickListener {
             logout(actAccountId)
         }
