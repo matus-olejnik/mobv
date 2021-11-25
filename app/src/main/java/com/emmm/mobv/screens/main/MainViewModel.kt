@@ -12,8 +12,6 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
 
     val tmpTextView: MutableLiveData<String> = MutableLiveData()
 
-    val actualAccountId: MutableLiveData<String> = MutableLiveData()
-
     fun fetchActualBalance(accountId: String) {
         viewModelScope.launch {
             val actualBalance = repository.getActualBalance(accountId)

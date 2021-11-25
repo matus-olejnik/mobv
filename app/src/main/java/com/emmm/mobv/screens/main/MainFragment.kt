@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
 import com.emmm.mobv.WelcomeActivity
 import com.emmm.mobv.databinding.MainFragmentBinding
@@ -17,6 +19,7 @@ import com.emmm.mobv.util.Injection
 class MainFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
+    private val mainBaseViewModel: MainBaseViewModel by activityViewModels()
 
     private lateinit var binding: MainFragmentBinding
 
@@ -48,13 +51,17 @@ class MainFragment : Fragment() {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToTransactionsFragment(actAccountId))
         }
 
+        binding.toOrdersButton.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToOrdersFragment("", actAccountId))
+        }
+
         binding.logoutButton.setOnClickListener {
             logout(actAccountId)
         }
 
         mainViewModel.fetchActualBalance(actAccountId)
         mainViewModel.fetchCurrentUser(actAccountId)
-        mainViewModel.actualAccountId.value = actAccountId
+        mainBaseViewModel.actualAccountId.value = actAccountId
 
         return binding.root
     }

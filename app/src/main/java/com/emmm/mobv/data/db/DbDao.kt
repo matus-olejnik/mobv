@@ -33,6 +33,9 @@ interface DbDao {
     @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId")
     fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>>
 
+    @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId")
+    suspend fun getAllContacts2(mainAccountId: String): List<ContactItem>
+
     @Query("SELECT ua.accountId FROM user_account ua LIMIT 1")
     fun getActualUserAccountId(): String
 
