@@ -19,6 +19,7 @@ import org.stellar.sdk.responses.SubmitTransactionResponse
 import org.stellar.sdk.responses.operations.CreateAccountOperationResponse
 import org.stellar.sdk.responses.operations.OperationResponse
 import org.stellar.sdk.responses.operations.PaymentOperationResponse
+import shadow.okhttp3.OkHttpClient
 
 class DataRepository private constructor(
     private val api: WebApi,
@@ -159,51 +160,64 @@ class DataRepository private constructor(
 
         val server = Server(StellarUtil.TESTNET_URL)
         val account = KeyPair.fromAccountId(accountId)
+
         val paymentRequestBuilder: PaymentsRequestBuilder = server.payments().forAccount(account.accountId)
-        val operations: ArrayList<OperationResponse> = paymentRequestBuilder.execute().records
+        val page = paymentRequestBuilder.execute()
+        var records: ArrayList<OperationResponse> = page.records
+        val okHttpClient = OkHttpClient()
 
-        for (payment in operations) {
-            if (payment is PaymentOperationResponse) {
-                val amount: String = payment.amount
-                val asset: Asset = payment.asset
-                val assetName: String = if (asset == AssetTypeNative()) {
-                    "lumens"
-                } else {
-                    val assetNameBuilder: StringBuilder = StringBuilder()
-                    assetNameBuilder.append(((asset as AssetTypeCreditAlphaNum).code))
-                    assetNameBuilder.append(":")
-                    assetNameBuilder.append(asset.issuer)
-                    assetNameBuilder.toString()
+        while (true) {
+
+            if (records.isEmpty()) {
+                break
+            }
+
+            for (payment in records) {
+                if (payment is PaymentOperationResponse) {
+                    val amount: String = payment.amount
+                    val asset: Asset = payment.asset
+                    val assetName: String = if (asset == AssetTypeNative()) {
+                        "lumens"
+                    } else {
+                        val assetNameBuilder: StringBuilder = StringBuilder()
+                        assetNameBuilder.append(((asset as AssetTypeCreditAlphaNum).code))
+                        assetNameBuilder.append(":")
+                        assetNameBuilder.append(asset.issuer)
+                        assetNameBuilder.toString()
+                    }
+                    output.append(amount)
+                    output.append(" ")
+                    output.append(assetName)
+                    output.append("\n hash ")
+                    output.append(payment.transactionHash)
+                    output.append("\n from ")
+                    output.append(payment.from)
+                    output.append("\n to ")
+                    output.append(payment.to)
+                    output.append("\n\n   ")
+
+                    val transactionItem = TransactionItem(
+                        payment.transactionHash,
+                        accountId,
+                        payment.from,
+                        payment.to,
+                        payment.amount,
+                        assetName,
+                        payment.createdAt
+                    )
+                    insertTransaction(transactionItem)
+
+                } else if (payment is CreateAccountOperationResponse) {
+                    output.append("Funder ")
+                    output.append(payment.funder)
+                    output.append("\nStarting balance ")
+                    output.append(payment.startingBalance)
                 }
-                output.append(amount)
-                output.append(" ")
-                output.append(assetName)
-                output.append("\n hash ")
-                output.append(payment.transactionHash)
-                output.append("\n from ")
-                output.append(payment.from)
-                output.append("\n to ")
-                output.append(payment.to)
-                output.append("\n\n   ")
 
-                val transactionItem = TransactionItem(
-                    payment.transactionHash,
-                    accountId,
-                    payment.from,
-                    payment.to,
-                    payment.amount,
-                    assetName,
-                    payment.createdAt
-                )
-                insertTransaction(transactionItem)
-
-            } else if (payment is CreateAccountOperationResponse) {
-                output.append("Funder ")
-                output.append(payment.funder)
-                output.append("\nStarting balance ")
-                output.append(payment.startingBalance)
+                records = page.getNextPage(okHttpClient).records
             }
         }
+
         Log.i("DataRepository", "transactions for $accountId\n$output")
     }
 
