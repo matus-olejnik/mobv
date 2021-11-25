@@ -170,7 +170,7 @@
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/reloadButton_1"
+            android:id="@+id/reloadBalanceButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/reloadbutton"
