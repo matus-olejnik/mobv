@@ -91,12 +91,7 @@ class DataRepository private constructor(
             Log.i("DataRepository", "successfully fetched balance \n${response}")
 
             for (balance in response.body()!!.balances) {
-                val actBalance = String.format(
-                    "Balance: %s, Type: %s, Code: %s %n",
-                    balance.balance,
-                    balance.assetType,
-                    balance.assetCode
-                )
+                val actBalance = balance.balance
 
                 output.append(actBalance)
                 Log.i("DataRepository", actBalance)
