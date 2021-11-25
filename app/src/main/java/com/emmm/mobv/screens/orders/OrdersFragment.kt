@@ -56,6 +56,7 @@ class OrdersFragment : Fragment() {
         ordersViewModel.contactsList.observe(viewLifecycleOwner) {
             Log.i("aaa", "dwadwa")
             contactList.clear()
+            contactList.add(ContactItem("-1", "Vyberte kontakt", "", ""))
             contactList.addAll(it)
             adapter.notifyDataSetChanged()
         }
