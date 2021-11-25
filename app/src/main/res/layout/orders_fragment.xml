@@ -29,56 +29,185 @@
         android:layout_height="match_parent"
         tools:context=".screens.orders.OrdersFragment">
 
-        <EditText
-            android:id="@+id/amountEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Ciastka"
-            android:inputType="number"
-            android:text="@={model.amountEditText}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contactNamesSpinner"
-            app:layout_constraintVertical_bias="0.165" />
+        <ImageView
+            android:id="@+id/background_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backgroundordersscreen"
+            android:scaleType="centerCrop"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="-1dp" />
 
-        <Button
-            android:text="Odoslat"
-            android:onClick="@{() -> model.onSendMoney()}"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/sendMoneyButton"
-            app:layout_constraintTop_toBottomOf="@+id/confirmPinEditText"
+            android:fontFamily="@font/avenir"
+            android:fontWeight="200"
+            android:text="Send Money"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.282" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:hint="PIN"
-            android:text="@={model.confirmPinEditText}"
-            android:id="@+id/confirmPinEditText"
-            app:layout_constraintTop_toBottomOf="@+id/amountEditText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.203"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Spinner
             android:id="@+id/contactNamesSpinner"
-            android:layout_width="306dp"
-            android:layout_height="105dp"
+            android:layout_width="315dp"
+            android:layout_height="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.447"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/amountEditText"
+            app:layout_constraintVertical_bias="0.069" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/amountEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/MyHintStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.447"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.014"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/avenir"
+                android:hint="Amount"
+                android:inputType="number"
+                android:minWidth="315dp"
+                android:minHeight="32dp"
+                android:text="@={model.amountEditText}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmPinEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/MyHintStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.447"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contactNamesSpinner"
+            app:layout_constraintVertical_bias="0.065"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/avenir"
+                android:hint="Pin Code:"
+                android:inputType="numberPassword"
+                android:minWidth="315dp"
+                android:minHeight="32dp"
+                android:text="@={model.confirmPinEditText}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/sendMoneyButton"
+            android:layout_width="222dp"
+            android:layout_height="62dp"
+            android:background="@drawable/sendbutton"
+            android:onClick="@{() -> model.onSendMoney()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirmPinEditText"
+            app:layout_constraintVertical_bias="0.141"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="80dp"
+            android:layout_height="83dp"
+            android:background="@drawable/homebutton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/contactsButton"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.118" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/toOrdersButton"
+            android:layout_width="80dp"
+            android:layout_height="83dp"
+            android:background="@drawable/ordersbutton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/toTransactionsButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/contactsButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/toTransactionsButton"
+            android:layout_width="80dp"
+            android:layout_height="83dp"
+            android:background="@drawable/transactionbutton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/logoutButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/toOrdersButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="80dp"
+            android:layout_height="83dp"
+            android:background="@drawable/logoutbutton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/toTransactionsButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/contactsButton"
+            android:layout_width="80dp"
+            android:layout_height="83dp"
+            android:background="@drawable/contactbutton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/toOrdersButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/homeButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
