@@ -42,7 +42,7 @@ interface DbDao {
     @Query("DELETE FROM user_account WHERE accountId = :accountId")
     suspend fun deleteUserData(accountId: String)
 
-    @Query("SELECT * FROM transaction_tbl WHERE ownerAccountId = :accountId ORDER BY createdAt")
+    @Query("SELECT * FROM transaction_tbl WHERE ownerAccountId = :accountId ORDER BY date(createdAt) DESC")
     fun getAllTransactions(accountId: String): LiveData<List<TransactionItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
