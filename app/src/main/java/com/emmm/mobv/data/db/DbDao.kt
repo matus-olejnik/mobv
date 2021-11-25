@@ -30,10 +30,10 @@ interface DbDao {
     @Delete
     suspend fun deleteContact(contactItem: ContactItem)
 
-    @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId")
+    @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId ORDER BY name")
     fun getAllContacts(mainAccountId: String): LiveData<List<ContactItem>>
 
-    @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId")
+    @Query("SELECT * FROM contact WHERE mainAccountId = :mainAccountId ORDER BY name")
     suspend fun getAllContacts2(mainAccountId: String): List<ContactItem>
 
     @Query("SELECT ua.accountId FROM user_account ua LIMIT 1")
@@ -42,7 +42,7 @@ interface DbDao {
     @Query("DELETE FROM user_account WHERE accountId = :accountId")
     suspend fun deleteUserData(accountId: String)
 
-    @Query("SELECT * FROM transaction_tbl WHERE ownerAccountId = :accountId ORDER BY createdAt")
+    @Query("SELECT * FROM transaction_tbl WHERE ownerAccountId = :accountId ORDER BY date(createdAt) DESC")
     fun getAllTransactions(accountId: String): LiveData<List<TransactionItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
