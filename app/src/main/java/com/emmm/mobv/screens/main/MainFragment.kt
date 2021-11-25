@@ -59,6 +59,10 @@ class MainFragment : Fragment() {
             logout(actAccountId)
         }
 
+        binding.reloadBalanceButton.setOnClickListener {
+            mainViewModel.fetchActualBalance(actAccountId)
+        }
+
         mainViewModel.fetchActualBalance(actAccountId)
         mainViewModel.fetchCurrentUser(actAccountId)
         mainBaseViewModel.actualAccountId.value = actAccountId
