@@ -63,10 +63,9 @@ class OrdersFragment : Fragment() {
 
         ordersViewModel.eventSendMoney.observe(viewLifecycleOwner) { event ->
             if (event) {
-//                ordersViewModel.sendMoney(mainBaseViewModel.actualAccountId.value!!, args.contactAccountId) //TODO
                 ordersViewModel.sendMoney(
                     mainBaseViewModel.actualAccountId.value!!,
-                    (binding.contactNamesSpinner.selectedItem as ContactItem).contactAccountId
+                    args.contactAccountId.ifEmpty { (binding.contactNamesSpinner.selectedItem as ContactItem).contactAccountId }
                 )
             }
         }
