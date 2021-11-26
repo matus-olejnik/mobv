@@ -1,6 +1,5 @@
 package com.emmm.mobv.screens.main;
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
-import com.emmm.mobv.WelcomeActivity
 import com.emmm.mobv.databinding.MainFragmentBinding
 import com.emmm.mobv.util.Injection
 
@@ -51,13 +49,5 @@ class MainFragment : Fragment() {
         mainBaseViewModel.actualAccountId.value = actAccountId
 
         return binding.root
-    }
-
-    private fun logout(actAccountId: String) {
-        mainViewModel.logout(actAccountId)
-        val intent = Intent(activity, WelcomeActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        activity?.finish()
     }
 }

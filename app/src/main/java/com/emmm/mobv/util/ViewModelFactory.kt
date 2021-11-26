@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.data.DataRepository
 import com.emmm.mobv.screens.login.LoginViewModel
+import com.emmm.mobv.screens.logout.LogoutViewModel
 import com.emmm.mobv.screens.main.MainViewModel
 import com.emmm.mobv.screens.orders.OrdersViewModel
 import com.emmm.mobv.screens.registration.RegistrationViewModel
@@ -39,6 +40,11 @@ class ViewModelFactory(private val repository: DataRepository) : ViewModelProvid
         if (modelClass.isAssignableFrom(OrdersViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return OrdersViewModel(repository) as T
+        }
+
+        if (modelClass.isAssignableFrom(LogoutViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return LogoutViewModel(repository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")
