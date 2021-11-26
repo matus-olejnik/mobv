@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/main_fragment"
+        android:title="@string/home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:iconTint="@color/teal_200"
+        android:icon="@drawable/ic_home" />
+
+    <item
+        android:id="@+id/contacts_fragment"
+        android:title="@string/contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/ic_users" />
+
+    <item
+        android:id="@+id/orders_fragment"
+        android:title="@string/orders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/ic_money" />
+
+    <item
+        android:id="@+id/transactions_fragment"
+        android:title="@string/transactions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/ic_transaction" />
+
+    <item
+        android:id="@+id/logoutButton"
+        android:title="@string/logout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/ic_logout"/>
+
+</menu>

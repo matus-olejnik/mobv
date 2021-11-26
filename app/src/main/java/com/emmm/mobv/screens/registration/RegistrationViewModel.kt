@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 class RegistrationViewModel : ViewModel() {
 
     val secretSeedTextView: MutableLiveData<String> = MutableLiveData()
+    val secretSeedTextViewVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
     val progressBarVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
     val checkboxChecked: MutableLiveData<Boolean> = MutableLiveData(false)
     val checkboxVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
@@ -23,6 +24,7 @@ class RegistrationViewModel : ViewModel() {
                 progressBarVisibility.value = View.VISIBLE
 
                 val secretSeed = StellarUtil.createAccount()
+                secretSeedTextViewVisibility.value = View.VISIBLE
                 secretSeedTextView.postValue(secretSeed)
 
                 progressBarVisibility.value = View.GONE

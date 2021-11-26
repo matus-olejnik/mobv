@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
 import com.emmm.mobv.WelcomeActivity
@@ -50,22 +49,6 @@ class MainFragment : Fragment() {
         editor.putString("public_key", actAccountId)
         editor.apply()
         Log.i("Public saved", ": $actAccountId")
-
-        binding.contactsButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment(actAccountId))
-        }
-
-        binding.toTransactionsButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToTransactionsFragment(actAccountId))
-        }
-
-        binding.toOrdersButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToOrdersFragment("", actAccountId))
-        }
-
-        binding.logoutButton.setOnClickListener {
-            logout(actAccountId)
-        }
 
         binding.reloadBalanceButton.setOnClickListener {
             mainViewModel.fetchActualBalance(actAccountId)
