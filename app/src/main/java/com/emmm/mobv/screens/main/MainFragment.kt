@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
 import com.emmm.mobv.WelcomeActivity
@@ -42,22 +41,6 @@ class MainFragment : Fragment() {
         binding.model = mainViewModel
 
         val actAccountId = activity?.intent?.extras?.get("accountId").toString()
-
-        binding.contactsButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment(actAccountId))
-        }
-
-        binding.toTransactionsButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToTransactionsFragment(actAccountId))
-        }
-
-        binding.toOrdersButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToOrdersFragment("", actAccountId))
-        }
-
-        binding.logoutButton.setOnClickListener {
-            logout(actAccountId)
-        }
 
         binding.reloadBalanceButton.setOnClickListener {
             mainViewModel.fetchActualBalance(actAccountId)
