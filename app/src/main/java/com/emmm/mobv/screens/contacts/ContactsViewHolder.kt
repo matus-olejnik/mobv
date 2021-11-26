@@ -14,9 +14,9 @@ class ContactsViewHolder constructor(
         dataBinding.contactItem = contactItem
 
         itemView.setOnClickListener {
-//            itemView.findNavController().navigate(R.id.action_contacts_fragment_to_orders_fragment2)
             itemView.findNavController().navigate(
-                ContactsFragmentDirections.actionContactsFragmentToOrdersFragment2()  //TODO mo here should be sending contact account id
+                ContactsFragmentDirections.actionContactsFragmentToOrdersFragment2()
+                    .setContactAccountId(contactItem.contactAccountId)
             )
 
         }
