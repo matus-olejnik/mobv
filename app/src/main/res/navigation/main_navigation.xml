@@ -30,8 +30,11 @@
             android:label="orders_fragment"
             tools:layout="@layout/orders_fragment">
         <argument
-            android:name="contactAccountId"
-            android:defaultValue=""
-            app:argType="string" />
+                android:name="contactAccountId"
+                android:defaultValue=""
+                app:argType="string"/>
     </fragment>
+    <fragment android:id="@+id/logoutFragment"
+              android:name="com.emmm.mobv.screens.logout.LogoutFragment"
+              android:label="LogoutFragment"/>
 </navigation>
