@@ -59,6 +59,12 @@ class OrdersFragment : Fragment() {
             contactList.add(ContactItem("-1", "Vyberte kontakt", "", ""))
             contactList.addAll(it)
             adapter.notifyDataSetChanged()
+
+            if (args.contactAccountId.isNotEmpty()) {
+                binding.contactNamesSpinner.setSelection(
+                    contactList.indexOf(contactList.find { contactItem -> contactItem.contactAccountId == args.contactAccountId })
+                )
+            }
         }
 
         ordersViewModel.eventSendMoney.observe(viewLifecycleOwner) { event ->
