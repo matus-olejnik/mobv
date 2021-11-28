@@ -30,92 +30,83 @@
         tools:context=".screens.welcome.WelcomeFragment">
 
         <ImageView
-            android:id="@+id/background_white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:scaleType="centerCrop" />
-
-        <ImageView
             android:id="@+id/background_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/backgroundelemnets"
             android:scaleType="centerCrop"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_editor_absoluteY="-78dp" />
 
         <ImageView
-            android:id="@+id/wallet_icon"
-            android:layout_width="252dp"
-            android:layout_height="231dp"
-            android:background="@drawable/walleticon"
+            android:id="@+id/welcomescreenicon"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/welcomescreenicon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.037" />
+            app:layout_constraintVertical_bias="0.145" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="500"
+            android:fontFamily="@font/titillium_web_light"
             android:text="COIN MEMM"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
-            android:textSize="26sp"
-            app:layout_constraintBottom_toBottomOf="@+id/background_white"
+            android:textSize="38sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wallet_icon"
-            app:layout_constraintVertical_bias="0.115"
+            app:layout_constraintTop_toBottomOf="@+id/welcomescreenicon"
+            app:layout_constraintVertical_bias="0.117"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="200"
+            android:alpha=".5"
+            android:fontFamily="@font/titillium_web_regular"
             android:text="Create a free account"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/background_white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.04"
+            app:layout_constraintVertical_bias="0.035"
             tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/toRegistrationButton"
-            android:layout_width="222dp"
-            android:layout_height="62dp"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
             android:background="@drawable/createanaccountbutton"
-            app:layout_constraintBottom_toBottomOf="@+id/background_white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.125"
+            app:layout_constraintVertical_bias="0.548"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/toLoginButton"
-            android:layout_width="222dp"
-            android:layout_height="62dp"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
             android:background="@drawable/loginbutton"
-            app:layout_constraintBottom_toBottomOf="@+id/background_white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toRegistrationButton"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.223"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

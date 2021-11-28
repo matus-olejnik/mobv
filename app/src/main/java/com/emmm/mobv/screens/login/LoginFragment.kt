@@ -47,9 +47,9 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
-        }
+ //       binding.backButton.setOnClickListener {
+ //           findNavController().navigateUp()
+ //       }
 
         return binding.root
     }

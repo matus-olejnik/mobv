@@ -31,7 +31,6 @@
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         tools:context=".screens.login.LoginFragment">
 
         <ImageView
@@ -41,21 +40,38 @@
             android:background="@drawable/backgroundelemnets"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="-114dp" />
+            tools:layout_editor_absoluteY="-67dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/titillium_web_regular"
+            android:text="Welcome Back!"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.025"
+            tools:ignore="MissingConstraints" />
 
         <ImageView
             android:id="@+id/login_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/usericon"
+            android:layout_width="246dp"
+            android:layout_height="147dp"
+            android:background="@drawable/loginicon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.18" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.072" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/secretSeedEditText"
@@ -68,14 +84,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_icon"
-            app:layout_constraintVertical_bias="0.146"
+            app:layout_constraintVertical_bias="0.123"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:fontFamily="@font/avenir"
+                android:fontFamily="@font/titillium_web_light"
                 android:hint="Private Key:"
                 android:inputType="textVisiblePassword"
                 android:minWidth="315dp"
@@ -108,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:fontFamily="@font/avenir"
+                android:fontFamily="@font/titillium_web_light"
                 android:hint="Pin Code:"
                 android:inputType="numberPassword"
                 android:minWidth="315dp"
@@ -120,12 +136,58 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
+            android:background="@drawable/loginbutton"
+            android:onClick="@{() -> model.loginNewUser()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pinEditText"
+            app:layout_constraintVertical_bias="0.304"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/titillium_web_regular"
+            android:text="Don’t have an account?"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintHorizontal_bias="0.933"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginButton"
+            app:layout_constraintVertical_bias="0.176"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/titillium_web_semi_bold"
+            android:text="Sign Up"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.665"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginButton"
+            app:layout_constraintVertical_bias="0.166"
+            tools:ignore="MissingConstraints" />
+
         <TextView
             android:id="@+id/errorTextView"
-            android:layout_width="319dp"
-            android:layout_height="53dp"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="200"
+            android:layout_width="245dp"
+            android:layout_height="34dp"
+            android:fontFamily="@font/titillium_web_semi_bold"
             android:text="@string/error_public_key"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
@@ -134,36 +196,9 @@
             android:visibility="@{(model.wrongPublicKeyVisibility == View.VISIBLE ? View.VISIBLE : (model.wrongPublicKeyVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_icon"
-            app:layout_constraintVertical_bias="0.788" />
-
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="222dp"
-            android:layout_height="62dp"
-            android:background="@drawable/loginbutton"
-            android:onClick="@{() -> model.loginNewUser()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pinEditText"
-            app:layout_constraintVertical_bias="0.15"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="14dp"
-            android:background="@drawable/backbutton_2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.044"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+            app:layout_constraintVertical_bias="0.957" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

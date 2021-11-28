@@ -31,10 +31,10 @@
         android:icon="@drawable/ic_transaction" />
 
     <item
-            android:id="@+id/logoutFragment"
-            android:title="@string/logout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:icon="@drawable/ic_logout"/>
+        android:id="@+id/logoutFragment"
+        android:title="@string/logout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/ic_logout" />
 
 </menu>

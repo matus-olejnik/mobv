@@ -39,9 +39,9 @@ class RegistrationFragment : Fragment() {
             findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToLoginFragment())
         }
 
-        binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
-        }
+//        binding.backButton.setOnClickListener {
+//            findNavController().navigateUp()
+//        }
 
         return binding.root
     }
