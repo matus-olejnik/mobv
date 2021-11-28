@@ -46,10 +46,9 @@
             android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/image_view"
             android:fontFamily="@font/titillium_web_semi_bold"
-            android:text="Janko Hráško"
+            android:text="@{contactItem.name}"
             android:textColor="#0D1F3C"
             android:textSize="15sp" />
-        <!--android:text="@{contactItem.name}"-->
 
         <TextView
             android:id="@+id/contactAccountId"
@@ -59,11 +58,10 @@
             android:layout_marginTop="32dp"
             android:layout_toRightOf="@id/image_view"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="GDGZ3UUZAPKFDQBZXC7PCFT7JGMOF6Y5RO4NZOSLSEQFWOHX3FF5MOUC"
+            android:text="@{contactItem.contactAccountId}"
             android:textAlignment="center"
             android:textColor="#485068"
             android:textSize="15sp" />
-        <!--android:text="@{contactItem.contactAccountId}"-->
 
     </RelativeLayout>
 </layout>

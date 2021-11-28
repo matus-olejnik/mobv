@@ -15,7 +15,8 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
     fun fetchActualBalance(accountId: String) {
         viewModelScope.launch {
             val actualBalance = repository.getActualBalance(accountId)
-            moneyBalanceTextView.value = actualBalance
+            val xml = " XML"
+            moneyBalanceTextView.value = String.format("%.7s", actualBalance) + xml
         }
     }
 
