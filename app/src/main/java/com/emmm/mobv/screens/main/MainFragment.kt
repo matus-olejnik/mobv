@@ -1,7 +1,10 @@
 package com.emmm.mobv.screens.main;
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +45,11 @@ class MainFragment : Fragment() {
         binding.model = mainViewModel
 
         val actAccountId = activity?.intent?.extras?.get("accountId").toString()
+        // Save public_key in Shared Preference for next login
+        val editor: SharedPreferences.Editor = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
+        editor.putString("public_key", actAccountId)
+        editor.apply()
+        Log.i("Public saved", ": $actAccountId")
 
         binding.contactsButton.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment(actAccountId))
@@ -71,6 +79,10 @@ class MainFragment : Fragment() {
     }
 
     private fun logout(actAccountId: String) {
+        // Clear public_key value saved in Shared Preference
+        val editor: SharedPreferences.Editor = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
+        editor.remove("public_key").commit()
+
         mainViewModel.logout(actAccountId)
         val intent = Intent(activity, WelcomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
