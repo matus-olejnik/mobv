@@ -49,7 +49,7 @@ class OrdersFragment : Fragment() {
         }
 
         val contactList = ArrayList<ContactItem>()
-        val adapter = CustomContactSpinnerAdapter(context!!, android.R.layout.simple_spinner_item, contactList)
+        val adapter = CustomContactSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_item, contactList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.contactNamesSpinner.adapter = adapter
 
