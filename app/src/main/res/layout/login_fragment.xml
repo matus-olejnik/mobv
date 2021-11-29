@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="Welcome Back!"
+            android:text="@string/welcome_back"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="20sp"
@@ -88,11 +88,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:fontFamily="@font/titillium_web_light"
-                android:hint="Private Key:"
+                android:hint="@string/private_key"
                 android:inputType="textVisiblePassword"
                 android:minWidth="315dp"
                 android:minHeight="32dp"
@@ -121,11 +122,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:fontFamily="@font/titillium_web_light"
-                android:hint="Pin Code:"
+                android:hint="@string/pin_code"
                 android:inputType="numberPassword"
                 android:minWidth="315dp"
                 android:minHeight="32dp"
@@ -141,7 +143,6 @@
             android:layout_width="195dp"
             android:layout_height="40dp"
             android:background="@drawable/loginbutton"
-            android:onClick="@{() -> model.loginNewUser()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -150,16 +151,16 @@
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/noAccountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="Don’t have an account?"
+            android:text="@string/have_account"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@+id/signUpTextView"
             app:layout_constraintHorizontal_bias="0.933"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginButton"
@@ -167,11 +168,11 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/signUpTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/titillium_web_semi_bold"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="12sp"

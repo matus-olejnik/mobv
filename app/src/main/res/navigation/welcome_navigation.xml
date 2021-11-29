@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_loginFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment"/>
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment android:id="@+id/registrationFragment"
               android:name="com.emmm.mobv.screens.registration.RegistrationFragment"

@@ -16,6 +16,8 @@ class RegistrationViewModel : ViewModel() {
     val checkboxVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
     val registrationButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
     val goToLoginPageButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
+    val goToLoginPageTextViewVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
+    val alreadyAccountTextViewVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
     val errorTextViewVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
 
     fun registerNewUser() {
@@ -29,6 +31,8 @@ class RegistrationViewModel : ViewModel() {
 
                 progressBarVisibility.value = View.GONE
                 checkboxVisibility.value = View.GONE
+                goToLoginPageTextViewVisibility.value = View.GONE
+                alreadyAccountTextViewVisibility.value = View.GONE
 
                 registrationButtonVisibility.value = View.GONE
                 goToLoginPageButtonVisibility.value = View.VISIBLE

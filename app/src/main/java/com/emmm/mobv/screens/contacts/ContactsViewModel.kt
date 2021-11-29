@@ -1,6 +1,7 @@
 package com.emmm.mobv.screens.contacts;
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,16 +24,22 @@ class ContactsViewModel(
     val contactAccountIdEditText: MutableLiveData<String> = MutableLiveData()
 
     fun insertContact(accountId: String) {
-        viewModelScope.launch {
-            val contactItem = ContactItem(
-                UUID.randomUUID().toString(),
-                contactNameEditText.value!!,
-                accountId,
-                contactAccountIdEditText.value!!
-            )
-            Log.i("ContactsViewModel", "inserting $contactItem")
+        if (contactNameEditText.value?.toString()?.equals("") == false &&
+            contactAccountIdEditText.value?.toString()?.equals("") == false
+        ) {
+            viewModelScope.launch {
+                val contactItem = ContactItem(
+                    UUID.randomUUID().toString(),
+                    contactNameEditText.value!!,
+                    accountId,
+                    contactAccountIdEditText.value!!
+                )
+                Log.i("ContactsViewModel", "inserting $contactItem")
 
-            repository.insertContact(contactItem)
+                repository.insertContact(contactItem)
+                contactNameEditText.value = ""
+                contactAccountIdEditText.value = ""
+            }
         }
     }
 }

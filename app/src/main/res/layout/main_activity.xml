@@ -36,7 +36,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rounded"
-        app:itemIconTint="@color/navigation_icons"
+        app:itemIconTint="@color/bottom_nav_bar_icon_tint"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

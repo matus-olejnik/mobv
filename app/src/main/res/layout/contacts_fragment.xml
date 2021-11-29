@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="Contacts"
+            android:text="@string/contacts"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="20sp"
@@ -53,11 +53,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:fontFamily="@font/titillium_web_light"
-                android:hint="Name of new contact:"
+                android:hint="@string/name_of_new_contact"
                 android:inputType="textPersonName"
                 android:minWidth="315dp"
                 android:minHeight="32dp"
@@ -83,11 +84,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:fontFamily="@font/titillium_web_light"
-                android:hint="Public Key:"
+                android:hint="@string/public_key"
                 android:inputType="textVisiblePassword"
                 android:minWidth="315dp"
                 android:minHeight="32dp"

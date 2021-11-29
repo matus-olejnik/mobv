@@ -12,4 +12,6 @@
     <color name="gray">#6A6A6A</color>
     <color name="navigation_icons">#B5BBC9</color>
     <color name="navigation_color">#EDF1F9</color>
+    <color name="bottom_nav_view_items">#B5BBC9</color>
+    <color name="bottom_nav_view_items_selected">#3379ED</color>
 </resources>
