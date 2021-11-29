@@ -1,6 +1,8 @@
 package com.emmm.mobv.screens.logout;
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +41,10 @@ class LogoutFragment : Fragment() {
     }
 
     private fun logout(actAccountId: String) {
+        val editor: SharedPreferences.Editor =
+            requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
+        editor.remove("public_key").commit()
+
         logoutViewModel.logout(actAccountId)
         val intent = Intent(activity, WelcomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK

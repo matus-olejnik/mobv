@@ -1,6 +1,9 @@
 package com.emmm.mobv.screens.main;
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +15,6 @@ import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.MainFragmentBinding
 import com.emmm.mobv.util.Injection
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.util.Log
 
 class MainFragment : Fragment() {
 
@@ -58,17 +57,5 @@ class MainFragment : Fragment() {
         mainBaseViewModel.actualAccountId.value = actAccountId
 
         return binding.root
-    }
-
-    private fun logout(actAccountId: String) {
-        // Clear public_key value saved in Shared Preference
-        val editor: SharedPreferences.Editor = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
-        editor.remove("public_key").commit()
-
-        mainViewModel.logout(actAccountId)
-        val intent = Intent(activity, WelcomeActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        activity?.finish()
     }
 }
