@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.api.WebApi
 import com.emmm.mobv.data.db.LocalCache
+import com.emmm.mobv.data.db.SendMoneyResult
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.data.db.model.TransactionItem
 import com.emmm.mobv.data.db.model.UserAccountItem
@@ -105,21 +106,36 @@ class DataRepository private constructor(
         return ""
     }
 
-    suspend fun sendMoney(fromAccountId: String, toAccountId: String, amount: String, pinCode: String): Boolean =
+    suspend fun sendMoney(
+        fromAccountId: String,
+        toAccountId: String,
+        amount: String,
+        pinCode: String
+    ): SendMoneyResult =
         withContext(ioDispatcher) {
             Log.i("DataRepository", "sending money from $fromAccountId to $toAccountId")
 
             val userAccountItem = getUserAccountItem(fromAccountId)
 
-            val fromAccountSecret = CryptoUtil.decrypt(userAccountItem.secretSeedEncrypted, pinCode)!!
+            val fromAccountSecret: String
+            try {
+                fromAccountSecret = CryptoUtil.decrypt(userAccountItem.secretSeedEncrypted, pinCode)!!
+
+            } catch (e: Exception) {
+                return@withContext SendMoneyResult.BAD_ACCOUNT_ID_OR_PIN
+            }
 
             val server = Server(StellarUtil.TESTNET_URL)
             val source = KeyPair.fromSecretSeed(fromAccountSecret)
-            val destination = KeyPair.fromAccountId(toAccountId)
+            val destination: KeyPair
 
-
-            server.accounts().account(source.accountId)
-            server.accounts().account(destination.accountId)
+            try {
+                destination = KeyPair.fromAccountId(toAccountId)
+                server.accounts().account(source.accountId)
+                server.accounts().account(destination.accountId)
+            } catch (e: Exception) {
+                return@withContext SendMoneyResult.BAD_ACCOUNT_ID_OR_PIN
+            }
 
             val sourceAccount: AccountResponse
 
@@ -138,10 +154,10 @@ class DataRepository private constructor(
             return@withContext try {
                 val response: SubmitTransactionResponse = server.submitTransaction(transaction)
                 Log.i("DataRepository", "sending money successful\n$response")
-                true
+                SendMoneyResult.SUCCESSFUL
             } catch (e: Exception) {
                 Log.i("DataRepository", "error while sending money\n${e.message}")
-                false
+                SendMoneyResult.FAIL
             }
         }
 
