@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="Send Money"
+            android:text="@string/send_money"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="20sp"
@@ -69,11 +69,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:fontFamily="@font/titillium_web_light"
-                android:hint="Amount"
+                android:hint="@string/amount"
                 android:inputType="number"
                 android:minWidth="315dp"
                 android:minHeight="32dp"
@@ -101,11 +102,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:fontFamily="@font/titillium_web_light"
-                android:hint="Pin Code:"
+                android:hint="@string/pin_code"
                 android:inputType="numberPassword"
                 android:minWidth="315dp"
                 android:minHeight="32dp"
@@ -121,7 +123,6 @@
             android:layout_width="195dp"
             android:layout_height="40dp"
             android:background="@drawable/sendmoneybutton"
-            android:onClick="@{() -> model.onSendMoney()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

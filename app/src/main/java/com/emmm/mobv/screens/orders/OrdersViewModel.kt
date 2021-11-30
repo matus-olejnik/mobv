@@ -1,5 +1,6 @@
 package com.emmm.mobv.screens.orders;
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.emmm.mobv.data.DataRepository
 import com.emmm.mobv.data.db.model.ContactItem
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class OrdersViewModel(private val repository: DataRepository) : ViewModel() {
     val tmp2TextView: MutableLiveData<String> = MutableLiveData()
@@ -38,7 +40,14 @@ class OrdersViewModel(private val repository: DataRepository) : ViewModel() {
     fun sendMoney(fromAccountId: String, toAccountId: String) {
         viewModelScope.launch {
             _eventMoneySent.value =
-                repository.sendMoney(fromAccountId, toAccountId, amountEditText.value!!, confirmPinEditText.value!!)
+                repository.sendMoney(
+                    fromAccountId,
+                    toAccountId,
+                    amountEditText.value!!,
+                    confirmPinEditText.value!!
+                )
         }
+        amountEditText.value = ""
+        confirmPinEditText.value = ""
     }
 }
