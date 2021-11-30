@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emmm.mobv.data.DataRepository
+import com.emmm.mobv.data.PriceRequest
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: DataRepository) : ViewModel() {
@@ -21,6 +22,17 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
             val actualBalance = repository.getActualBalance(accountId)
             val xml = " XLM"
             moneyBalanceTextView.value = String.format("%.2f", actualBalance.toFloat()) + xml
+
+            //Exchange
+            try {
+                val actualPrice = PriceRequest().getActualRate()
+                Log.d("Debug request", "$actualPrice")
+                val exchangedValue = (actualBalance.toFloat() * actualPrice.toFloat())
+                exchangeToEuroTextView.value = String.format("%.2f", exchangedValue)
+                exchangeToEuroBalance.value = "€ " + String.format("%.2f", exchangedValue)
+            } catch (nfe: NumberFormatException) {
+                Log.i("Exchange XLM", "Wrong number format")
+            }
         }
     }
 
@@ -33,20 +45,6 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
     fun fetchCurrentUser(accountId: String) {
         viewModelScope.launch {
             tmpTextView.value = repository.getUserAccountItem(accountId).toString()
-        }
-    }
-
-    fun exchangeXMLtoEUR(accountId: String) {
-        viewModelScope.launch {
-            val actualBalance = repository.getActualBalance(accountId)
-            try {
-                val exchangedValue = (actualBalance.toFloat() * 0.303)
-                exchangeToEuroTextView.value = String.format("%.2f", exchangedValue)
-                exchangeToEuroBalance.value = "€ " + String.format("%.2f", exchangedValue)
-            }
-            catch (nfe: NumberFormatException){
-                Log.i("Exchange XLM: ", "Wrong number format")
-            }
         }
     }
 }
