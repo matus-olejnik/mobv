@@ -48,7 +48,8 @@ class OrdersFragment : Fragment() {
         binding.model = ordersViewModel
 
         ordersViewModel.eventMoneySent.observe(viewLifecycleOwner) { event ->
-            val text = if (event == true) "Odoslanie uspesne" else "Odoslanie NEUSPESNE"
+            ordersViewModel.progressBarVisibility.value = View.INVISIBLE
+            val text = if (event == true) "Payment successful" else "Payment failed"
             Toast.makeText(context, text, Toast.LENGTH_LONG).show()
         }
 
@@ -63,7 +64,7 @@ class OrdersFragment : Fragment() {
 
         ordersViewModel.contactsList.observe(viewLifecycleOwner) {
             contactList.clear()
-            contactList.add(ContactItem("-1", "Vyberte kontakt", "", ""))
+            contactList.add(ContactItem("-1", "Choose contact", "", ""))
             contactList.addAll(it)
             adapter.notifyDataSetChanged()
 
@@ -111,6 +112,7 @@ class OrdersFragment : Fragment() {
                     binding.confirmPinEditText.error = "Please enter your pin!"
                 }
                 else -> {
+                    ordersViewModel.progressBarVisibility.value = View.VISIBLE
                     ordersViewModel.onSendMoney()
                 }
             }

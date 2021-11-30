@@ -22,4 +22,8 @@
     <string name="send_money">Send Money</string>
     <string name="amount">Amount</string>
     <string name="pin_code">Pin Code:</string>
+    <string name="balance">BALANCE</string>
+    <string name="transaction_history">Transaction history</string>
+    <string name="coin_memm">COIN MEMM</string>
+    <string name="crypto_wallet_beyond_horizon">Crypto Wallet Beyond Horizon</string>
 </resources>

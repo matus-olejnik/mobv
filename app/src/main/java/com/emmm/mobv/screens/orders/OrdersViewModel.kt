@@ -1,6 +1,6 @@
 package com.emmm.mobv.screens.orders;
 
-import android.widget.Toast
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,12 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.emmm.mobv.data.DataRepository
 import com.emmm.mobv.data.db.model.ContactItem
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class OrdersViewModel(private val repository: DataRepository) : ViewModel() {
     val tmp2TextView: MutableLiveData<String> = MutableLiveData()
     val confirmPinEditText: MutableLiveData<String> = MutableLiveData()
     val amountEditText: MutableLiveData<String> = MutableLiveData()
+    val progressBarVisibility: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
+
 
     private var _contactsList: MutableLiveData<List<ContactItem>> = MutableLiveData()
     val contactsList: MutableLiveData<List<ContactItem>>
