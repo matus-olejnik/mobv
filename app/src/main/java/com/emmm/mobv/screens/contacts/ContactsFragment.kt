@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,7 +14,6 @@ import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.ContactsFragmentBinding
 import com.emmm.mobv.util.Injection
-import kotlinx.android.synthetic.main.contacts_fragment.*
 
 class ContactsFragment : Fragment() {
 
@@ -63,10 +60,10 @@ class ContactsFragment : Fragment() {
 
             when {
                 binding.editText1.text.toString() == "" -> {
-                    binding.contactNameEditText.error = "Please enter a contact name"
+                    binding.contactNameEditText.error = "Please enter a contact name!"
                 }
                 binding.editText2.text.toString() == "" -> {
-                    binding.contactAccountIdEditText.error = "Please enter a contact account id"
+                    binding.contactAccountIdEditText.error = "Please enter a contact account id!"
                 }
                 else -> {
                     contactsViewModel.insertContact(mainBaseViewModel.actualAccountId.value!!)

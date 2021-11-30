@@ -60,12 +60,13 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
             app:errorEnabled="true"
+            app:errorTextAppearance="@style/MyErrorSytyle"
             app:hintTextAppearance="@style/MyHintStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/contactNamesSpinner"
-            app:layout_constraintVertical_bias="0.051"
+            app:layout_constraintVertical_bias="0.066"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -91,12 +92,14 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
             app:errorEnabled="true"
+            app:errorTextAppearance="@style/MyErrorSytyle"
+            app:errorTextColor="@color/white"
             app:hintTextAppearance="@style/MyHintStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/amountEditText"
-            app:layout_constraintVertical_bias="0.063"
+            app:layout_constraintVertical_bias="0.0"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/white"
             tools:ignore="MissingConstraints">

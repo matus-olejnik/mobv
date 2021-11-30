@@ -3,7 +3,6 @@ package com.emmm.mobv.screens.orders;
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,7 +19,6 @@ import com.emmm.mobv.R
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.databinding.OrdersFragmentBinding
 import com.emmm.mobv.util.Injection
-import java.lang.Exception
 
 class OrdersFragment : Fragment() {
     private lateinit var ordersViewModel: OrdersViewModel
@@ -105,13 +102,13 @@ class OrdersFragment : Fragment() {
 
             when {
                 binding.contactNamesSpinner.selectedItemId == 0L -> {
-                    Toast.makeText(context, "Please select receiver", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Please select receiver!", Toast.LENGTH_SHORT).show()
                 }
                 binding.editText1.text.toString() == "" -> {
-                    binding.amountEditText.error = "Please enter an amount"
+                    binding.amountEditText.error = "Please enter an amount!"
                 }
                 binding.editText2.text.toString() == "" -> {
-                    binding.confirmPinEditText.error = "Please enter your pin"
+                    binding.confirmPinEditText.error = "Please enter your pin!"
                 }
                 else -> {
                     ordersViewModel.onSendMoney()

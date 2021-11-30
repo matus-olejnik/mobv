@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.MainActivity
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.LoginFragmentBinding
-import com.emmm.mobv.screens.registration.RegistrationFragmentDirections
 import com.emmm.mobv.util.Injection
 
 
@@ -57,9 +56,9 @@ class LoginFragment : Fragment() {
             binding.pinEditText.error = ""
 
             if (binding.editText1.text.toString() == "") {
-                binding.secretSeedEditText.error = "Please enter your private key"
+                binding.secretSeedEditText.error = "Please enter your private key!"
             } else if (binding.editText2.text.toString() == "") {
-                binding.pinEditText.error = "Please enter your pin"
+                binding.pinEditText.error = "Please enter your pin!"
             } else {
                 loginViewModel.loginNewUser()
             }
