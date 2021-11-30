@@ -22,12 +22,12 @@
         android:background="@drawable/transactionitembackground" >
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/image_view"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                app:cardCornerRadius="52dp"
-                android:layout_marginTop="11dp"
-                android:layout_marginLeft="20dp" >
+                    android:id="@+id/image_view"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    app:cardCornerRadius="25dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="20dp">
 
                 <ImageView
                         android:id="@+id/image_view_plus"
