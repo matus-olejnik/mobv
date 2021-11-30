@@ -50,9 +50,11 @@ class MainFragment : Fragment() {
 
         binding.reloadBalanceButton.setOnClickListener {
             mainViewModel.fetchActualBalance(actAccountId)
+            mainViewModel.exchangeXMLtoEUR(actAccountId)
         }
 
         mainViewModel.fetchActualBalance(actAccountId)
+        mainViewModel.exchangeXMLtoEUR(actAccountId)
         mainViewModel.fetchCurrentUser(actAccountId)
         mainBaseViewModel.actualAccountId.value = actAccountId
 
