@@ -30,11 +30,11 @@
                 android:layout_marginLeft="20dp" >
 
                 <ImageView
-                    android:id="@+id/image_view_plus"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/plusicon" >
+                        android:id="@+id/image_view_plus"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:scaleType="centerCrop"
+                        imgRes="@{BaseUtil.getIconIdForIncome(transactionItemDto.income)}">
                 </ImageView>
 
             </androidx.cardview.widget.CardView>
