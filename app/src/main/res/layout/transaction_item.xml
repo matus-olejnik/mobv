@@ -47,10 +47,9 @@
             android:layout_marginTop="11dp"
             android:layout_toRightOf="@id/image_view"
             android:fontFamily="@font/titillium_web_semi_bold"
-            android:text="1 000"
+            android:text="@{transactionItemDto.amount}"
             android:textColor="#0D1F3C"
             android:textSize="15sp" />
-        <!--android:text="@{transactionItemDto.income ? transactionItemDto.amount : ('-' + transactionItemDto.amount)}"-->
 
         <TextView
             android:id="@+id/transactionAssetNameTextView"
@@ -59,11 +58,10 @@
             android:layout_marginTop="11dp"
             android:layout_toRightOf="@id/transactionContactAccountIdTextView"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="lumens"
+            android:text="@{transactionItemDto.assetName}"
             android:textAlignment="center"
             android:textColor="#485068"
             android:textSize="15sp" />
-        <!--android:text="@{transactionItemDto.assetName}"-->
 
         <TextView
             android:id="@+id/transactionCreatedAtTextView"
@@ -73,11 +71,10 @@
             android:layout_marginTop="11dp"
             android:layout_toRightOf="@id/transactionAssetNameTextView"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="Aug 19, 2020"
+            android:text="@{transactionItemDto.createdAt}"
             android:textAlignment="center"
             android:textColor="#485068"
             android:textSize="15sp" />
-        <!--android:text="@{transactionItemDto.createdAt}"-->
 
         <TextView
             android:id="@+id/transactionSubjectTextView"

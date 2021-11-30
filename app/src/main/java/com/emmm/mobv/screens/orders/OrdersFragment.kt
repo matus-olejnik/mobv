@@ -1,11 +1,13 @@
 package com.emmm.mobv.screens.orders;
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
@@ -54,7 +56,6 @@ class OrdersFragment : Fragment() {
         binding.contactNamesSpinner.adapter = adapter
 
         ordersViewModel.contactsList.observe(viewLifecycleOwner) {
-            Log.i("aaa", "dwadwa")
             contactList.clear()
             contactList.add(ContactItem("-1", "Vyberte kontakt", "", ""))
             contactList.addAll(it)
@@ -65,6 +66,7 @@ class OrdersFragment : Fragment() {
                     contactList.indexOf(contactList.find { contactItem -> contactItem.contactAccountId == args.contactAccountId })
                 )
             }
+            (binding.contactNamesSpinner.adapter.getView(0, null, binding.contactNamesSpinner) as TextView).setTextColor(Color.WHITE)
         }
 
         ordersViewModel.eventSendMoney.observe(viewLifecycleOwner) { event ->
@@ -73,6 +75,16 @@ class OrdersFragment : Fragment() {
                     mainBaseViewModel.actualAccountId.value!!,
                     args.contactAccountId.ifEmpty { (binding.contactNamesSpinner.selectedItem as ContactItem).contactAccountId }
                 )
+            }
+        }
+
+        binding.contactNamesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                (parent?.getChildAt(0) as TextView).setTextColor(Color.WHITE)
+                (parent?.getChildAt(0) as TextView).fontFeatureSettings ="font-family: 'titillium_web_light'"
             }
         }
 

@@ -47,13 +47,12 @@
             android:text="BALANCE"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.024"
+            app:layout_constraintVertical_bias="0.025"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -64,7 +63,7 @@
             android:text="@={model.exchangeToEuroBalance}"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
-            android:textSize="30sp"
+            android:textSize="34sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -74,71 +73,19 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/crypto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/user_id"
+            android:layout_width="239dp"
+            android:layout_height="44dp"
             android:fontFamily="@font/titillium_web_regular"
-            android:text="CRYPTO"
+            android:text="SBKLDXWYASGNN2CDPDDGISA5F7N6G65FVQBJHI3XHBNUB34CQ3Q7WUE6"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/CASH"
-            app:layout_constraintHorizontal_bias="0.297"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balance_caount"
-            app:layout_constraintVertical_bias="0.058"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/crypto_balance_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/titillium_web_regular"
-            android:text="€5 000"
-            android:textAlignment="center"
-            android:textColor="#FFFDFD"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cash_balance_count"
-            app:layout_constraintHorizontal_bias="0.311"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/crypto"
-            app:layout_constraintVertical_bias="0.001"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/CASH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/titillium_web_regular"
-            android:text="CASH"
-            android:textAlignment="center"
-            android:textColor="#FFFDFD"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.769"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/balance_caount"
-            app:layout_constraintVertical_bias="0.056"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/cash_balance_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/titillium_web_regular"
-            android:text="€5 000"
-            android:textAlignment="center"
-            android:textColor="#FFFDFD"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.776"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CASH"
-            app:layout_constraintVertical_bias="0.003"
+            app:layout_constraintVertical_bias="0.05"
             tools:ignore="MissingConstraints" />
 
         <ImageView
@@ -169,10 +116,9 @@
             app:layout_constraintTop_toTopOf="@+id/background_XML"
             app:layout_constraintVertical_bias="0.629"
             tools:ignore="MissingConstraints" />
-        <!--android:text="1 000 XML"-->
 
         <TextView
-            android:id="@+id/balance_XML_euro"
+            android:id="@+id/balance_XLM_euro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/titillium_web_semi_bold"
