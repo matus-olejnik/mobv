@@ -35,8 +35,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/backgroundordersscreen"
             android:scaleType="centerCrop"
-            tools:layout_editor_absoluteX="-16dp"
-            tools:layout_editor_absoluteY="-1dp" />
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/textView"
@@ -54,20 +54,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Spinner
-            android:id="@+id/contactNamesSpinner"
-            android:layout_width="315dp"
-            android:layout_height="32dp"
-            android:fontFamily="@font/titillium_web_light"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.447"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/amountEditText"
-            app:layout_constraintVertical_bias="0.069" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/amountEditText"
             android:layout_width="wrap_content"
@@ -77,10 +63,9 @@
             app:hintTextAppearance="@style/MyHintStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.447"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.014"
+            app:layout_constraintTop_toBottomOf="@+id/contactNamesSpinner"
+            app:layout_constraintVertical_bias="0.051"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -108,10 +93,9 @@
             app:hintTextAppearance="@style/MyHintStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.447"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contactNamesSpinner"
-            app:layout_constraintVertical_bias="0.065"
+            app:layout_constraintTop_toBottomOf="@+id/amountEditText"
+            app:layout_constraintVertical_bias="0.063"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/white"
             tools:ignore="MissingConstraints">
@@ -163,8 +147,25 @@
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sendMoneyButton"
-            app:layout_constraintVertical_bias="0.173" />
-        <!--Set visibility!!!-->
+            app:layout_constraintVertical_bias="0.156" />
+
+        <Spinner
+            android:id="@+id/contactNamesSpinner"
+            android:layout_width="315dp"
+            android:layout_height="42dp"
+            android:layout_gravity="left"
+            android:background="@drawable/style_spinner"
+            android:popupBackground="@drawable/style_spinner_popup_window"
+            android:dropDownVerticalOffset="2dp"
+            android:overlapAnchor="false"
+            android:padding="0dp"
+            android:popupElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.064"
+            tools:ignore="MissingClass,MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
