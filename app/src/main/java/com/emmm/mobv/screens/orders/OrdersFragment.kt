@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
+import com.emmm.mobv.data.db.SendMoneyResult
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.databinding.OrdersFragmentBinding
 import com.emmm.mobv.util.Injection
@@ -48,9 +49,17 @@ class OrdersFragment : Fragment() {
         binding.model = ordersViewModel
 
         ordersViewModel.eventMoneySent.observe(viewLifecycleOwner) { event ->
+            if (!ordersViewModel.eventSendMoney.value!!) {
+                return@observe
+            }
             ordersViewModel.progressBarVisibility.value = View.INVISIBLE
-            val text = if (event == true) "Payment successful" else "Payment failed"
+            val text: String = when (event!!) {
+                SendMoneyResult.SUCCESSFUL -> getString(R.string.send_money_result_SUCCESSFUL)
+                SendMoneyResult.FAIL -> getString(R.string.send_money_result_FAIL)
+                SendMoneyResult.BAD_ACCOUNT_ID_OR_PIN -> getString(R.string.send_money_result_BAD_ACCOUNT_ID_OR_PIN)
+            }
             Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+            ordersViewModel.onSendMoneyDone()
         }
 
         val contactList = ArrayList<ContactItem>()
@@ -73,7 +82,11 @@ class OrdersFragment : Fragment() {
                     contactList.indexOf(contactList.find { contactItem -> contactItem.contactAccountId == args.contactAccountId })
                 )
             }
-            (binding.contactNamesSpinner.adapter.getView(0, null, binding.contactNamesSpinner) as TextView).setTextColor(Color.WHITE)
+            (binding.contactNamesSpinner.adapter.getView(
+                0,
+                null,
+                binding.contactNamesSpinner
+            ) as TextView).setTextColor(Color.WHITE)
         }
 
         ordersViewModel.eventSendMoney.observe(viewLifecycleOwner) { event ->
@@ -85,13 +98,13 @@ class OrdersFragment : Fragment() {
             }
         }
 
-        binding.contactNamesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        binding.contactNamesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 (parent?.getChildAt(0) as TextView).setTextColor(Color.WHITE)
-                (parent?.getChildAt(0) as TextView).fontFeatureSettings ="font-family: 'titillium_web_light'"
+                (parent?.getChildAt(0) as TextView).fontFeatureSettings = "font-family: 'titillium_web_light'"
             }
         }
 

@@ -26,4 +26,7 @@
     <string name="transaction_history">Transaction history</string>
     <string name="coin_memm">COIN MEMM</string>
     <string name="crypto_wallet_beyond_horizon">Crypto Wallet Beyond Horizon</string>
+    <string name="send_money_result.SUCCESSFUL">Payment successful</string>
+    <string name="send_money_result.FAIL">Payment failed</string>
+    <string name="send_money_result.BAD_ACCOUNT_ID_OR_PIN">Bad account id or pin code</string>
 </resources>
