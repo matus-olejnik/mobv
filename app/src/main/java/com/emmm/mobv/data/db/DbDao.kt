@@ -47,4 +47,7 @@ interface DbDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transactionItem: TransactionItem)
+
+    @Query("SELECT moneyBalance FROM user_account WHERE accountId = :accountId")
+    suspend fun getActualBalanceFromDb(accountId: String): String
 }

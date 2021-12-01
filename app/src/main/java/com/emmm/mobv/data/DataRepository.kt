@@ -79,6 +79,12 @@ class DataRepository private constructor(
         return cache.getAllTransactions(mainAccountId)
     }
 
+    suspend fun getActualBalanceFromDb(accountId: String): String {
+        Log.i("DataRepository", "getting balance from db")
+        return cache.getActualBalanceFromDb(accountId)
+    }
+
+
     //TODO other currencies
     //TODO use BigDecimal!
     suspend fun getActualBalance(accountId: String): String {
