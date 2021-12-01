@@ -10,15 +10,15 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
     val currentUserID: MutableLiveData<String> = MutableLiveData("")
     val moneyBalanceTextView: MutableLiveData<String> = MutableLiveData("")
 
-    private val usdXlmRate: MutableLiveData<BigDecimal> = MutableLiveData()
-    val tranUsdXlmRate: LiveData<String> = Transformations.map(usdXlmRate) { "$ ${it ?: ""}" }
+    private val usdBalance: MutableLiveData<BigDecimal> = MutableLiveData()
+    val tranUsdBalance: LiveData<String> = Transformations.map(usdBalance) { "$ ${it ?: ""}" }
 
     fun fetchActualBalance(accountId: String) {
         viewModelScope.launch {
             val actualBalance = repository.getActualBalance(accountId)
             val xml = " XLM"
             moneyBalanceTextView.value = String.format("%.2f", actualBalance.toFloat()) + xml
-            usdXlmRate.value = repository.calculateUsdBalance(BigDecimal(actualBalance))
+            usdBalance.value = repository.calculateUsdBalance(BigDecimal(actualBalance))
         }
     }
 
