@@ -26,9 +26,8 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="200"
-            android:text="Contacts"
+            android:fontFamily="@font/titillium_web_regular"
+            android:text="@string/contacts"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="20sp"
@@ -45,6 +44,7 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
             app:errorEnabled="true"
+            app:errorTextAppearance="@style/MyErrorSytyle"
             app:hintTextAppearance="@style/MyHintStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,11 +54,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:fontFamily="@font/avenir"
-                android:hint="Name of new contact:"
+                android:fontFamily="@font/titillium_web_light"
+                android:hint="@string/name_of_new_contact"
                 android:inputType="textPersonName"
                 android:minWidth="315dp"
                 android:minHeight="32dp"
@@ -75,6 +76,7 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
             app:errorEnabled="true"
+            app:errorTextAppearance="@style/MyErrorSytyle"
             app:hintTextAppearance="@style/MyHintStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,11 +86,12 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:fontFamily="@font/avenir"
-                android:hint="Public Key:"
+                android:fontFamily="@font/titillium_web_light"
+                android:hint="@string/public_key"
                 android:inputType="textVisiblePassword"
                 android:minWidth="315dp"
                 android:minHeight="32dp"
@@ -101,88 +104,20 @@
 
         <Button
             android:id="@+id/saveButton"
-            android:layout_width="222dp"
-            android:layout_height="62dp"
-            android:background="@drawable/addcontactbutton"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
+            android:background="@drawable/addnewcontactbutton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/contactAccountIdEditText"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/homeButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/homebutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/contactsButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/toOrdersButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/ordersbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toTransactionsButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/contactsButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/toTransactionsButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/transactionbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/logoutButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/toOrdersButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/logoutbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/toTransactionsButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/contactsButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/contactbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toOrdersButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/homeButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.041"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/contactList"
-            android:layout_width="381dp"
-            android:layout_height="241dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="291dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

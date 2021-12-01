@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.emmm.mobv.data.api.WebApi
 import com.emmm.mobv.data.db.LocalCache
+import com.emmm.mobv.data.db.SendMoneyResult
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.data.db.model.TransactionItem
 import com.emmm.mobv.data.db.model.UserAccountItem
@@ -13,13 +14,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.stellar.sdk.*
-import org.stellar.sdk.requests.PaymentsRequestBuilder
 import org.stellar.sdk.responses.AccountResponse
 import org.stellar.sdk.responses.SubmitTransactionResponse
-import org.stellar.sdk.responses.operations.CreateAccountOperationResponse
-import org.stellar.sdk.responses.operations.OperationResponse
-import org.stellar.sdk.responses.operations.PaymentOperationResponse
-import shadow.okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.math.BigDecimal
 
 class DataRepository private constructor(
     private val api: WebApi,
@@ -80,6 +79,14 @@ class DataRepository private constructor(
         return cache.getAllTransactions(mainAccountId)
     }
 
+    suspend fun getActualBalanceFromDb(accountId: String): String {
+        Log.i("DataRepository", "getting balance from db")
+        return cache.getActualBalanceFromDb(accountId)
+    }
+
+
+    //TODO other currencies
+    //TODO use BigDecimal!
     suspend fun getActualBalance(accountId: String): String {
         Log.i("DataRepository", "checking balance for account $accountId")
 
@@ -110,21 +117,39 @@ class DataRepository private constructor(
         return ""
     }
 
-    suspend fun sendMoney(fromAccountId: String, toAccountId: String, amount: String, pinCode: String): Boolean =
+    suspend fun sendMoney(
+        fromAccountId: String,
+        toAccountId: String,
+        amount: String,
+        pinCode: String
+    ): SendMoneyResult =
         withContext(ioDispatcher) {
             Log.i("DataRepository", "sending money from $fromAccountId to $toAccountId")
 
+            if (amount == "12345")
+                throw RuntimeException("Test Crash") // Force a crash
+
             val userAccountItem = getUserAccountItem(fromAccountId)
 
-            val fromAccountSecret = CryptoUtil.decrypt(userAccountItem.secretSeedEncrypted, pinCode)!!
+            val fromAccountSecret: String
+            try {
+                fromAccountSecret = CryptoUtil.decrypt(userAccountItem.secretSeedEncrypted, pinCode)!!
+
+            } catch (e: Exception) {
+                return@withContext SendMoneyResult.BAD_ACCOUNT_ID_OR_PIN
+            }
 
             val server = Server(StellarUtil.TESTNET_URL)
             val source = KeyPair.fromSecretSeed(fromAccountSecret)
-            val destination = KeyPair.fromAccountId(toAccountId)
+            val destination: KeyPair
 
-
-            server.accounts().account(source.accountId)
-            server.accounts().account(destination.accountId)
+            try {
+                destination = KeyPair.fromAccountId(toAccountId)
+                server.accounts().account(source.accountId)
+                server.accounts().account(destination.accountId)
+            } catch (e: Exception) {
+                return@withContext SendMoneyResult.BAD_ACCOUNT_ID_OR_PIN
+            }
 
             val sourceAccount: AccountResponse
 
@@ -143,74 +168,49 @@ class DataRepository private constructor(
             return@withContext try {
                 val response: SubmitTransactionResponse = server.submitTransaction(transaction)
                 Log.i("DataRepository", "sending money successful\n$response")
-                true
+
+                userAccountItem.moneyBalance =
+                    (userAccountItem.moneyBalance?.toFloat()?.minus(amount.toFloat())).toString()
+                cache.updateUserAccountItem(userAccountItem)
+                SendMoneyResult.SUCCESSFUL
             } catch (e: Exception) {
                 Log.i("DataRepository", "error while sending money\n${e.message}")
-                false
+                SendMoneyResult.FAIL
             }
         }
 
     suspend fun fetchTransactions(accountId: String) = withContext(ioDispatcher) {
+        Log.i("DataRepository", "fetching transactions")
+
         val output: StringBuilder = StringBuilder()
 
-        val server = Server(StellarUtil.TESTNET_URL)
-        val account = KeyPair.fromAccountId(accountId)
+        val response = api.getAllPayments(accountId, null, null, 200)
 
-        val paymentRequestBuilder: PaymentsRequestBuilder = server.payments().forAccount(account.accountId)
-        val page = paymentRequestBuilder.execute()
-        var records: ArrayList<OperationResponse> = page.records
-        val okHttpClient = OkHttpClient()
+        if (response.isSuccessful) {
+            Log.i("DataRepository", "successfully fetched transactions\n\n$response")
 
-        while (true) {
+            for (record in response.body()!!._embedded.records) {
+                if (record.type == "payment") {
+                    Log.i("DataRepository", "process transaction")
 
-            if (records.isEmpty()) {
-                break
-            }
-
-            for (payment in records) {
-                if (payment is PaymentOperationResponse) {
-                    val amount: String = payment.amount
-                    val asset: Asset = payment.asset
-                    val assetName: String = if (asset == AssetTypeNative()) {
-                        "lumens"
-                    } else {
-                        val assetNameBuilder: StringBuilder = StringBuilder()
-                        assetNameBuilder.append(((asset as AssetTypeCreditAlphaNum).code))
-                        assetNameBuilder.append(":")
-                        assetNameBuilder.append(asset.issuer)
-                        assetNameBuilder.toString()
-                    }
-                    output.append(amount)
-                    output.append(" ")
-                    output.append(assetName)
-                    output.append("\n hash ")
-                    output.append(payment.transactionHash)
-                    output.append("\n from ")
-                    output.append(payment.from)
-                    output.append("\n to ")
-                    output.append(payment.to)
-                    output.append("\n\n   ")
+                    output.append(record.toString())
+                    output.append("\n\n")
 
                     val transactionItem = TransactionItem(
-                        payment.transactionHash,
+                        record.transactionHash,
                         accountId,
-                        payment.from,
-                        payment.to,
-                        payment.amount,
-                        assetName,
-                        payment.createdAt
+                        record.from,
+                        record.to,
+                        record.amount,
+                        record.assetType,
+                        record.createdAt
                     )
                     insertTransaction(transactionItem)
-
-                } else if (payment is CreateAccountOperationResponse) {
-                    output.append("Funder ")
-                    output.append(payment.funder)
-                    output.append("\nStarting balance ")
-                    output.append(payment.startingBalance)
                 }
-
-                records = page.getNextPage(okHttpClient).records
             }
+
+        } else {
+            Log.i("DataRepository", "error while fetching transactions\n${response.errorBody()}")
         }
 
         Log.i("DataRepository", "transactions for $accountId\n$output")
@@ -223,5 +223,28 @@ class DataRepository private constructor(
 
     suspend fun deleteUserData(accountId: String) {
         cache.deleteUserData(accountId)
+    }
+
+    suspend fun calculateUsdBalance(xlmBalance: BigDecimal): BigDecimal? {
+        Log.i("DataRepository", "fetching external proces")
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.stellarterm.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(ApiService::class.java)
+
+        val response = service.getExternalPrices()
+
+        if (response.isSuccessful) {
+            Log.i("DataRepository", "successfully fetched external proces \n$response\n${response.body()}")
+
+            val rate = BigDecimal(response.body()?._meta?.externalPrices?.USD_XLM)
+            return rate.multiply(xlmBalance).setScale(2, BigDecimal.ROUND_HALF_UP)
+        } else {
+            Log.i("StellarUtil", "error while fetching external proces\n${response}")
+        }
+        return null
     }
 }

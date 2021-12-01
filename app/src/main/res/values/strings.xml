@@ -5,4 +5,28 @@
         Conditions.
     </string>
     <string name="error_public_key">Error: public key you typed is incorrect!</string>
+    <string name="home">Home</string>
+    <string name="contacts">Contacts</string>
+    <string name="orders">Orders</string>
+    <string name="transactions">Transactions</string>
+    <string name="logout">Logout</string>
+    <string name="already_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="name_of_new_contact">Name of new contact:</string>
+    <string name="public_key">Public Key:</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="private_key">Private Key:</string>
+    <string name="have_account">Don’t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create Account</string>
+    <string name="send_money">Send Money</string>
+    <string name="amount">Amount</string>
+    <string name="pin_code">Pin Code:</string>
+    <string name="balance">BALANCE</string>
+    <string name="transaction_history">Transaction history</string>
+    <string name="coin_memm">COIN MEMM</string>
+    <string name="crypto_wallet_beyond_horizon">Crypto Wallet Beyond Horizon</string>
+    <string name="send_money_result.SUCCESSFUL">Payment successful</string>
+    <string name="send_money_result.FAIL">Payment failed</string>
+    <string name="send_money_result.BAD_ACCOUNT_ID_OR_PIN">Bad account id or pin code</string>
 </resources>

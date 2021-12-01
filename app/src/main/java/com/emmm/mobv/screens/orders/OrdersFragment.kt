@@ -2,7 +2,6 @@ package com.emmm.mobv.screens.orders;
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
+import com.emmm.mobv.data.db.SendMoneyResult
 import com.emmm.mobv.data.db.model.ContactItem
 import com.emmm.mobv.databinding.OrdersFragmentBinding
 import com.emmm.mobv.util.Injection
@@ -38,25 +38,40 @@ class OrdersFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         ordersViewModel =
-            ViewModelProvider(requireActivity(), Injection.provideViewModelFactory(requireContext()))
+            ViewModelProvider(
+                requireActivity(),
+                Injection.provideViewModelFactory(requireContext())
+            )
                 .get(OrdersViewModel::class.java)
 
         binding.model = ordersViewModel
 
         ordersViewModel.eventMoneySent.observe(viewLifecycleOwner) { event ->
-            val text = if (event == true) "Odoslanie uspesne" else "Odoslanie NEUSPESNE"
+            if (!ordersViewModel.eventSendMoney.value!!) {
+                return@observe
+            }
+            ordersViewModel.progressBarVisibility.value = View.INVISIBLE
+            val text: String = when (event!!) {
+                SendMoneyResult.SUCCESSFUL -> getString(R.string.send_money_result_SUCCESSFUL)
+                SendMoneyResult.FAIL -> getString(R.string.send_money_result_FAIL)
+                SendMoneyResult.BAD_ACCOUNT_ID_OR_PIN -> getString(R.string.send_money_result_BAD_ACCOUNT_ID_OR_PIN)
+            }
             Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+            ordersViewModel.onSendMoneyDone()
         }
 
         val contactList = ArrayList<ContactItem>()
-        val adapter = CustomContactSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_item, contactList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = CustomContactSpinnerAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            contactList
+        )
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         binding.contactNamesSpinner.adapter = adapter
 
         ordersViewModel.contactsList.observe(viewLifecycleOwner) {
-            Log.i("aaa", "dwadwa")
             contactList.clear()
-            contactList.add(ContactItem("-1", "Vyberte kontakt", "", ""))
+            contactList.add(ContactItem("-1", "Choose contact", "", ""))
             contactList.addAll(it)
             adapter.notifyDataSetChanged()
 
@@ -77,6 +92,27 @@ class OrdersFragment : Fragment() {
         }
 
         ordersViewModel.fetchAllContacts(mainBaseViewModel.actualAccountId.value!!)
+
+        binding.sendMoneyButton.setOnClickListener {
+            binding.amountEditText.error = ""
+            binding.confirmPinEditText.error = ""
+
+            when {
+                binding.contactNamesSpinner.selectedItemId == 0L -> {
+                    Toast.makeText(context, "Please select receiver!", Toast.LENGTH_SHORT).show()
+                }
+                binding.editText1.text.toString() == "" -> {
+                    binding.amountEditText.error = "Please enter an amount!"
+                }
+                binding.editText2.text.toString() == "" -> {
+                    binding.confirmPinEditText.error = "Please enter your pin!"
+                }
+                else -> {
+                    ordersViewModel.progressBarVisibility.value = View.VISIBLE
+                    ordersViewModel.onSendMoney()
+                }
+            }
+        }
 
         return binding.root
     }

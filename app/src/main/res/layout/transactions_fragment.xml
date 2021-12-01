@@ -43,91 +43,23 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="200"
-            android:text="Transaction history"
+            android:fontFamily="@font/titillium_web_regular"
+            android:text="@string/transaction_history"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.025" />
-
-        <Button
-            android:id="@+id/homeButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/homebutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/contactsButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/toOrdersButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/ordersbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toTransactionsButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/contactsButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/toTransactionsButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/transactionbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/logoutButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/toOrdersButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/logoutbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/toTransactionsButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/contactsButton"
-            android:layout_width="80dp"
-            android:layout_height="83dp"
-            android:background="@drawable/contactbutton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toOrdersButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/homeButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transactionList"
-            android:layout_width="403dp"
-            android:layout_height="433dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="533dp"
+            android:layout_marginBottom="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

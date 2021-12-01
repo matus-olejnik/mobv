@@ -58,4 +58,8 @@ class LocalCache(private val dbDao: DbDao) {
     suspend fun insertTransaction(transactionItem: TransactionItem) {
         dbDao.insertTransaction(transactionItem)
     }
+
+    suspend fun getActualBalanceFromDb(accountId: String): String {
+        return dbDao.getActualBalanceFromDb(accountId)
+    }
 }

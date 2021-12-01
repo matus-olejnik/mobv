@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -39,19 +40,25 @@ class WelcomeFragment : Fragment() {
         binding.model = welcomeViewModel
 
         binding.toLoginButton.setOnClickListener {
-            if (checkInternetConnection(activity?.applicationContext!!))
-            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
+            if (checkInternetConnection(activity?.applicationContext!!)) {
+                findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment())
+            } else {
+                Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.toRegistrationButton.setOnClickListener {
-            if (checkInternetConnection(activity?.applicationContext!!))
-            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
+            if (checkInternetConnection(activity?.applicationContext!!)) {
+                findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToRegistrationFragment())
+            } else {
+                Toast.makeText(context, "Please check your internet connection", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return binding.root
     }
 
-    private fun checkInternetConnection(context: Context) : Boolean {
+    private fun checkInternetConnection(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities =

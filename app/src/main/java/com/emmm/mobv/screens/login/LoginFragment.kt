@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.MainActivity
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.LoginFragmentBinding
+import com.emmm.mobv.screens.registration.RegistrationViewModel
 import com.emmm.mobv.util.Injection
 
 
 class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
+    private val regViewModel: RegistrationViewModel by activityViewModels()
     private lateinit var binding: LoginFragmentBinding
 
     override fun onCreateView(
@@ -47,8 +50,25 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
+        regViewModel.secretSeedTextView.observe(viewLifecycleOwner, {
+            string -> binding.editText1.setText(string)
+        })
+
+        binding.signUpTextView.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
+        }
+
+        binding.loginButton.setOnClickListener {
+            binding.secretSeedEditText.error = ""
+            binding.pinEditText.error = ""
+
+            if (binding.editText1.text.toString() == "") {
+                binding.secretSeedEditText.error = "Please enter your private key!"
+            } else if (binding.editText2.text.toString() == "") {
+                binding.pinEditText.error = "Please enter your pin!"
+            } else {
+                loginViewModel.loginNewUser()
+            }
         }
 
         return binding.root

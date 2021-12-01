@@ -29,7 +29,6 @@
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         tools:context=".screens.registration.RegistrationFragment">
 
         <ImageView
@@ -43,64 +42,116 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/login_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/usericon"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/titillium_web_regular"
+            android:text="@string/create_account"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.18" />
+            app:layout_constraintVertical_bias="0.025"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/register_icon"
+            android:layout_width="246dp"
+            android:layout_height="147dp"
+            android:background="@drawable/registericon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.081" />
 
         <CheckBox
             android:id="@+id/simpleCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="200"
+            android:buttonTint="@color/white"
+            android:checked="@={model.checkboxChecked}"
+            android:fontFamily="@font/titillium_web_light"
             android:text="@string/agreement"
             android:textColor="#FFFDFD"
-            android:textSize="14sp"
-            android:checked="@={model.checkboxChecked}"
+            android:textSize="15sp"
             android:visibility="@{(model.checkboxVisibility == View.VISIBLE ? View.VISIBLE : (model.checkboxVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
-            android:buttonTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/background_color"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_icon"
-            app:layout_constraintVertical_bias="0.146"
-            tools:ignore="MissingConstraints"/>
-        <!--With checked property you can set the current state of the check box-->
+            app:layout_constraintTop_toBottomOf="@+id/register_icon"
+            app:layout_constraintVertical_bias="0.213"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/secretSeedTextView"
             android:layout_width="319dp"
             android:layout_height="53dp"
             android:autoSizeTextType="uniform"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="200"
+            android:fontFamily="@font/titillium_web_regular"
             android:text="@={model.secretSeedTextView}"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
             android:textIsSelectable="true"
             android:textSize="14sp"
+            android:visibility="@{model.secretSeedTextViewVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.532"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_icon"
-            app:layout_constraintVertical_bias="0.229" />
+            app:layout_constraintTop_toBottomOf="@+id/register_icon"
+            app:layout_constraintVertical_bias="0.224" />
+
+        <TextView
+            android:id="@+id/alreadyAccountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:fontFamily="@font/titillium_web_regular"
+            android:text="@string/already_account"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textSize="12sp"
+            android:visibility="@{model.alreadyAccountTextViewVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/goToLoginTextView"
+            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registrationButton"
+            app:layout_constraintVertical_bias="0.119"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/goToLoginTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:fontFamily="@font/titillium_web_semi_bold"
+            android:text="@string/login"
+            android:textAlignment="center"
+            android:textColor="#FFFDFD"
+            android:textSize="12sp"
+            android:visibility="@{model.goToLoginPageTextViewVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.671"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registrationButton"
+            app:layout_constraintVertical_bias="0.117"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/errorTextView"
-            android:layout_width="222dp"
-            android:layout_height="26dp"
-            android:fontFamily="@font/avenir"
-            android:fontWeight="200"
+            android:layout_width="197dp"
+            android:layout_height="34dp"
+            android:fontFamily="@font/titillium_web_semi_bold"
             android:text="@string/terms_and_conditions"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
@@ -109,10 +160,10 @@
             android:visibility="@{(model.checkboxChecked == true ? View.GONE : (model.checkboxChecked == false ? View.VISIBLE : View.INVISIBLE))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_icon"
-            app:layout_constraintVertical_bias="0.541" />
+            app:layout_constraintTop_toBottomOf="@+id/secretSeedTextView"
+            app:layout_constraintVertical_bias="0.096" />
 
         <ProgressBar
             android:id="@+id/progress_Bar"
@@ -131,13 +182,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_icon"
-            app:layout_constraintVertical_bias="0.699" />
+            app:layout_constraintTop_toBottomOf="@+id/register_icon"
+            app:layout_constraintVertical_bias="0.704" />
 
         <Button
             android:id="@+id/registrationButton"
-            android:layout_width="222dp"
-            android:layout_height="62dp"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
             android:background="@drawable/registerbutton"
             android:onClick="@{() -> model.registerNewUser()}"
             android:visibility="@{(model.registrationButtonVisibility == View.VISIBLE ? View.VISIBLE : (model.registrationButtonVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
@@ -146,35 +197,20 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/simpleCheckBox"
-            app:layout_constraintVertical_bias="0.176"
+            app:layout_constraintVertical_bias="0.198"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/goToLoginPageButton"
-            android:layout_width="222dp"
-            android:layout_height="62dp"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
             android:background="@drawable/gotologinpagebutton"
             android:visibility="@{(model.goToLoginPageButtonVisibility == View.VISIBLE ? View.VISIBLE : (model.goToLoginPageButtonVisibility == View.GONE ? View.GONE : View.INVISIBLE))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/secretSeedTextView"
-            app:layout_constraintVertical_bias="0.107"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-        <!--Attention! I temporarily hid the given button, which overlaps the Register button, using the visibility property.-->
-
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="14dp"
-            android:background="@drawable/backbutton_2"
-            android:stateListAnimator="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.13"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

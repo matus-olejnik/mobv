@@ -1,7 +1,6 @@
 package com.emmm.mobv.screens.main;
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -12,10 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
-import com.emmm.mobv.WelcomeActivity
 import com.emmm.mobv.databinding.MainFragmentBinding
 import com.emmm.mobv.util.Injection
 
@@ -51,42 +48,14 @@ class MainFragment : Fragment() {
         editor.apply()
         Log.i("Public saved", ": $actAccountId")
 
-        binding.contactsButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToContactsFragment(actAccountId))
-        }
-
-        binding.toTransactionsButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToTransactionsFragment(actAccountId))
-        }
-
-        binding.toOrdersButton.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToOrdersFragment("", actAccountId))
-        }
-
-        binding.logoutButton.setOnClickListener {
-            logout(actAccountId)
-        }
-
         binding.reloadBalanceButton.setOnClickListener {
-            mainViewModel.fetchActualBalance(actAccountId)
+            mainViewModel.fetchActualBalance(actAccountId, true)
         }
 
-        mainViewModel.fetchActualBalance(actAccountId)
-        mainViewModel.fetchCurrentUser(actAccountId)
+        mainViewModel.fetchActualBalance(actAccountId, false)
+        mainViewModel.updateCurrentUserId(actAccountId)
         mainBaseViewModel.actualAccountId.value = actAccountId
 
         return binding.root
-    }
-
-    private fun logout(actAccountId: String) {
-        // Clear public_key value saved in Shared Preference
-        val editor: SharedPreferences.Editor = requireActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE).edit()
-        editor.remove("public_key").commit()
-
-        mainViewModel.logout(actAccountId)
-        val intent = Intent(activity, WelcomeActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-        activity?.finish()
     }
 }

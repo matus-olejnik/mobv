@@ -1,33 +1,37 @@
 package com.emmm.mobv.screens.main;
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.emmm.mobv.data.DataRepository
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 
 class MainViewModel(private val repository: DataRepository) : ViewModel() {
 
+    val currentUserID: MutableLiveData<String> = MutableLiveData("")
+
     val moneyBalanceTextView: MutableLiveData<String> = MutableLiveData("")
+    private val usdBalance: MutableLiveData<BigDecimal> = MutableLiveData()
+    val tranUsdBalance: LiveData<String> = Transformations.map(usdBalance) { "$ ${it ?: ""}" }
 
-    val tmpTextView: MutableLiveData<String> = MutableLiveData()
+    private val balanceChekCount: MutableLiveData<Int> = MutableLiveData(0)
 
-    fun fetchActualBalance(accountId: String) {
+    fun fetchActualBalance(accountId: String, forceServer: Boolean) {
         viewModelScope.launch {
-            val actualBalance = repository.getActualBalance(accountId)
-            moneyBalanceTextView.value = actualBalance
+            val actualBalance: String = if (forceServer || balanceChekCount.value!! % 3 == 0) {
+                repository.getActualBalance(accountId)
+            } else {
+                repository.getActualBalanceFromDb(accountId)
+            }
+
+            val xml = " XLM"
+            moneyBalanceTextView.value = String.format("%.2f", actualBalance.toFloat()) + xml
+            usdBalance.value = repository.calculateUsdBalance(BigDecimal(actualBalance))
+            val tmpCount = balanceChekCount.value
+            balanceChekCount.value = tmpCount?.plus(1)
         }
     }
 
-    fun fetchCurrentUser(accountId: String) {
-        viewModelScope.launch {
-            tmpTextView.value = repository.getUserAccountItem(accountId).toString()
-        }
-    }
-
-    fun logout(accountId: String) {
-        viewModelScope.launch {
-            repository.deleteUserData(accountId)
-        }
+    fun updateCurrentUserId(accountId: String) {
+        currentUserID.value = accountId
     }
 }

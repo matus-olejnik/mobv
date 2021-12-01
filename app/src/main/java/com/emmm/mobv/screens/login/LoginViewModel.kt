@@ -52,6 +52,8 @@ class LoginViewModel(private val repository: DataRepository) : ViewModel() {
                     is IllegalArgumentException,
                     is NullPointerException -> {
                         wrongPublicKeyVisibility.value = View.VISIBLE
+                        secretSeedEditText.value = ""
+                        pinEditText.value = ""
                     }
                 }
             }

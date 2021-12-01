@@ -6,23 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emmm.mobv.MainBaseViewModel
 import com.emmm.mobv.R
 import com.emmm.mobv.databinding.TransactionsFragmentBinding
 import com.emmm.mobv.util.Injection
 
 class TransactionsFragment : Fragment() {
     private lateinit var transactionsViewModel: TransactionsViewModel
+    private val mainBaseViewModel: MainBaseViewModel by activityViewModels()
     private lateinit var binding: TransactionsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val args = TransactionsFragmentArgs.fromBundle(requireArguments())
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
@@ -32,7 +33,10 @@ class TransactionsFragment : Fragment() {
         transactionsViewModel =
             ViewModelProvider(
                 requireActivity(),
-                Injection.provideTransactionsViewModelFactory(requireContext(), args.accountId)
+                Injection.provideTransactionsViewModelFactory(
+                    requireContext(),
+                    mainBaseViewModel.actualAccountId.value!!
+                )
             )
                 .get(TransactionsViewModel::class.java)
 
@@ -46,7 +50,7 @@ class TransactionsFragment : Fragment() {
             adapter.transactions = it
         }
 
-        transactionsViewModel.fetchTransactions(args.accountId)
+        transactionsViewModel.fetchTransactions(mainBaseViewModel.actualAccountId.value!!)
 
         return binding.root
     }
