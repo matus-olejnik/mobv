@@ -49,10 +49,10 @@ class MainFragment : Fragment() {
         Log.i("Public saved", ": $actAccountId")
 
         binding.reloadBalanceButton.setOnClickListener {
-            mainViewModel.fetchActualBalance(actAccountId)
+            mainViewModel.fetchActualBalance(actAccountId, true)
         }
 
-        mainViewModel.fetchActualBalance(actAccountId)
+        mainViewModel.fetchActualBalance(actAccountId, false)
         mainViewModel.updateCurrentUserId(actAccountId)
         mainBaseViewModel.actualAccountId.value = actAccountId
 

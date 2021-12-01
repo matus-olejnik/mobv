@@ -15,9 +15,9 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
 
     private val balanceChekCount: MutableLiveData<Int> = MutableLiveData(0)
 
-    fun fetchActualBalance(accountId: String) {
+    fun fetchActualBalance(accountId: String, forceServer: Boolean) {
         viewModelScope.launch {
-            val actualBalance: String = if (balanceChekCount.value!! % 3 == 0) {
+            val actualBalance: String = if (forceServer || balanceChekCount.value!! % 3 == 0) {
                 repository.getActualBalance(accountId)
             } else {
                 repository.getActualBalanceFromDb(accountId)
