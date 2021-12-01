@@ -22,9 +22,7 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
         }
     }
 
-    fun fetchCurrentUserID(accountId: String) {
-        viewModelScope.launch {
-            currentUserID.value = repository.getUserAccountItem(accountId).accountId
-        }
+    fun updateCurrentUserId(accountId: String) {
+        currentUserID.value = accountId
     }
 }
