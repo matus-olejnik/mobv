@@ -80,6 +80,7 @@ class DataRepository private constructor(
     }
 
     //TODO other currencies
+    //TODO use BigDecimal!
     suspend fun getActualBalance(accountId: String): String {
         Log.i("DataRepository", "checking balance for account $accountId")
 
