@@ -16,6 +16,9 @@ import kotlinx.coroutines.withContext
 import org.stellar.sdk.*
 import org.stellar.sdk.responses.AccountResponse
 import org.stellar.sdk.responses.SubmitTransactionResponse
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.math.BigDecimal
 
 class DataRepository private constructor(
     private val api: WebApi,
@@ -76,6 +79,7 @@ class DataRepository private constructor(
         return cache.getAllTransactions(mainAccountId)
     }
 
+    //TODO other currencies
     suspend fun getActualBalance(accountId: String): String {
         Log.i("DataRepository", "checking balance for account $accountId")
 
@@ -205,5 +209,28 @@ class DataRepository private constructor(
 
     suspend fun deleteUserData(accountId: String) {
         cache.deleteUserData(accountId)
+    }
+
+    suspend fun calculateUsdBalance(xlmBalance: BigDecimal): BigDecimal? {
+        Log.i("DataRepository", "fetching external proces")
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.stellarterm.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(ApiService::class.java)
+
+        val response = service.getExternalPrices()
+
+        if (response.isSuccessful) {
+            Log.i("DataRepository", "successfully fetched external proces \n$response\n${response.body()}")
+
+            val rate = BigDecimal(response.body()?._meta?.externalPrices?.USD_XLM)
+            return rate.multiply(xlmBalance).setScale(2, BigDecimal.ROUND_HALF_UP)
+        } else {
+            Log.i("StellarUtil", "error while fetching external proces\n${response}")
+        }
+        return null
     }
 }

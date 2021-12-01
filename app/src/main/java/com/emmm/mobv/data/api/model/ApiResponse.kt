@@ -2,6 +2,18 @@ package com.emmm.mobv.data.api.model
 
 import com.google.gson.annotations.SerializedName
 
+data class TickerResponse(
+    val _meta: TickerExternalPricesResponse
+)
+
+data class TickerExternalPricesResponse(
+    val externalPrices: TickerExternalPriceResponse
+)
+
+data class TickerExternalPriceResponse(
+    val USD_XLM: String
+)
+
 data class PaymentResponse(
     val _embedded: PaymentEmbeddedResponse
 )

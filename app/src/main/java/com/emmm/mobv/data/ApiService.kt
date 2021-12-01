@@ -1,5 +1,6 @@
 package com.emmm.mobv.data
 
+import com.emmm.mobv.data.api.model.TickerResponse
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
@@ -16,4 +17,7 @@ interface ApiService {
 
     @GET("/accounts/{account}")
     suspend fun getAccountInfo(@Path("account") accountId: String): Response<ResponseBody>
+
+    @GET("/v1/ticker.json")
+    suspend fun getExternalPrices(): Response<TickerResponse>
 }
