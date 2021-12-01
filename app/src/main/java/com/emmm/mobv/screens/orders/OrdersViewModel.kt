@@ -11,7 +11,6 @@ import com.emmm.mobv.data.db.model.ContactItem
 import kotlinx.coroutines.launch
 
 class OrdersViewModel(private val repository: DataRepository) : ViewModel() {
-    val tmp2TextView: MutableLiveData<String> = MutableLiveData()
     val confirmPinEditText: MutableLiveData<String> = MutableLiveData()
     val amountEditText: MutableLiveData<String> = MutableLiveData()
     val progressBarVisibility: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)

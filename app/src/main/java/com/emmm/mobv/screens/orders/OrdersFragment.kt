@@ -68,7 +68,7 @@ class OrdersFragment : Fragment() {
             android.R.layout.simple_spinner_item,
             contactList
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         binding.contactNamesSpinner.adapter = adapter
 
         ordersViewModel.contactsList.observe(viewLifecycleOwner) {
