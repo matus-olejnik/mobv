@@ -120,6 +120,9 @@ class DataRepository private constructor(
         withContext(ioDispatcher) {
             Log.i("DataRepository", "sending money from $fromAccountId to $toAccountId")
 
+            if (amount == "12345")
+                throw RuntimeException("Test Crash") // Force a crash
+
             val userAccountItem = getUserAccountItem(fromAccountId)
 
             val fromAccountSecret: String
