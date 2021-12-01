@@ -168,6 +168,10 @@ class DataRepository private constructor(
             return@withContext try {
                 val response: SubmitTransactionResponse = server.submitTransaction(transaction)
                 Log.i("DataRepository", "sending money successful\n$response")
+
+                userAccountItem.moneyBalance =
+                    (userAccountItem.moneyBalance?.toFloat()?.minus(amount.toFloat())).toString()
+                cache.updateUserAccountItem(userAccountItem)
                 SendMoneyResult.SUCCESSFUL
             } catch (e: Exception) {
                 Log.i("DataRepository", "error while sending money\n${e.message}")
