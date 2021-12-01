@@ -53,7 +53,6 @@ class MainFragment : Fragment() {
         }
 
         mainViewModel.fetchActualBalance(actAccountId)
-        mainViewModel.fetchCurrentUser(actAccountId)
         mainViewModel.fetchCurrentUserID(actAccountId)
         mainBaseViewModel.actualAccountId.value = actAccountId
 

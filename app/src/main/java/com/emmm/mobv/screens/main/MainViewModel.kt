@@ -13,8 +13,6 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
     private val usdXlmRate: MutableLiveData<BigDecimal> = MutableLiveData()
     val tranUsdXlmRate: LiveData<String> = Transformations.map(usdXlmRate) { "$ ${it ?: ""}" }
 
-    val tmpTextView: MutableLiveData<String> = MutableLiveData()
-
     fun fetchActualBalance(accountId: String) {
         viewModelScope.launch {
             val actualBalance = repository.getActualBalance(accountId)
@@ -27,12 +25,6 @@ class MainViewModel(private val repository: DataRepository) : ViewModel() {
     fun fetchCurrentUserID(accountId: String) {
         viewModelScope.launch {
             currentUserID.value = repository.getUserAccountItem(accountId).accountId
-        }
-    }
-
-    fun fetchCurrentUser(accountId: String) {
-        viewModelScope.launch {
-            tmpTextView.value = repository.getUserAccountItem(accountId).toString()
         }
     }
 }
